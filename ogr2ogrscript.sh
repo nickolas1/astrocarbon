@@ -7,7 +7,7 @@ countries.json \
 ne_110m_admin_0_map_units/ne_110m_admin_0_map_units.shp
 
 topojson \
--o europe.json \
+-o data/europe.json \
 countries.json
 
 rm countries.json
@@ -19,10 +19,15 @@ ogr2ogr \
 countries.json \
 ne_110m_admin_0_map_units/ne_110m_admin_0_map_units.shp
 
+# redo north america manually by cutting and pasting these commands. after ogr2ogr 
+# go in and delete the hawaiian islands, then make northernamericas.json with topojson
+# the islands are easy to find- they are the first objects in the USA section,
+# with lat/long about -157/21
+# 
 topojson \
--o northernamericas.json \
+-o data/northernamericas.json \
 countries.json
-
+#
 rm countries.json
 
 
@@ -34,7 +39,7 @@ countries.json \
 ne_110m_admin_0_map_units/ne_110m_admin_0_map_units.shp
 
 topojson \
--o southamerica.json \
+-o data/southamerica.json \
 countries.json
 
 rm countries.json
@@ -49,7 +54,7 @@ countries.json \
 ne_110m_admin_0_map_units/ne_110m_admin_0_map_units.shp
 
 topojson \
--o asia.json \
+-o data/asia.json \
 countries.json
 
 rm countries.json
@@ -63,7 +68,7 @@ countries.json \
 ne_110m_admin_0_map_units/ne_110m_admin_0_map_units.shp
 
 topojson \
--o oceania.json \
+-o data/oceania.json \
 countries.json
 
 rm countries.json
@@ -78,7 +83,7 @@ countries.json \
 ne_110m_admin_0_map_units/ne_110m_admin_0_map_units.shp
 
 topojson \
--o africa.json \
+-o data/africa.json \
 countries.json
 
 rm countries.json
@@ -92,7 +97,21 @@ countries.json \
 ne_110m_admin_0_map_units/ne_110m_admin_0_map_units.shp
 
 topojson \
--o antarctica.json \
+-o data/antarctica.json \
+countries.json
+
+rm countries.json
+
+
+
+ogr2ogr \
+-f GeoJSON \
+-where "iso_3166_2 IN ('US-HI')" \
+countries.json \
+ne_110m_admin_1_states_provinces/ne_110m_admin_1_states_provinces_shp.shp
+
+topojson \
+-o data/hawaii.json \
 countries.json
 
 rm countries.json
