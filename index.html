@@ -3,8 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <link href='http://fonts.googleapis.com/css?family=Anonymous+Pro:400,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300,600' rel='stylesheet' type='text/css'>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
@@ -30,14 +29,15 @@
     <div id="topspacer" class="row">&nbsp;</div>
     <div id="backgrounds">
         <div id="background1" class="backgroundimage"></div>
+        <div id="backgroundgauze" class="backgroundimage"></div>
         <div id="background2" class="backgroundimage">
-            <div class="imagecredit">image credit: Benjamin Couprie</div>
+            <div class="imagecredit" style="color: rgb(0, 0, 0);">image : Benjamin Couprie</div>
         </div>
         <div id="background3" class="backgroundimage">
-            <div class="imagecredit">image credit: T. Abbott and NOAO/AURA/NSF</div>
+            <div class="imagecredit" style="color: rgb(150, 150, 150);">image : T. Abbott and NOAO/AURA/NSF</div>
         </div>
         <div id="background4" class="backgroundimage">
-            <div class="imagecredit">image credit: <a href="http://creativity103.com">creativity103.com</a></div>
+            <div class="imagecredit" style="color: rgb(230, 230, 230);">image : <a href="http://creativity103.com">creativity103.com</a></div>
         </div>
     </div>
     <div class="container frame" id="intro">
@@ -60,12 +60,10 @@
         </div>
         <div class="row">
             <div class="1u collapsingspacer">&nbsp;</div>
-            <a href="#conferences">
             <div class="-5u 1u continuebutton" id="introDone" style="opacity:0">
                 <p style="padding-top:0.35em;">continue</p>
                 <p><i class="fa fa-angle-double-down fa-3x"></i></p>
             </div>
-            </a>
         </div> 
     </div>
     
@@ -121,12 +119,10 @@
         </div>
         <div class="row">
             <div class="1u collapsingspacer">&nbsp;</div>
-            <a href="#observing">
             <div class="-5u 1u continuebutton">
                 <p style="padding-top:0.35em;">continue</p>
                 <p><i class="fa fa-angle-double-down fa-3x"></i></p>
             </div>
-            </a>
         </div>
     </div>
     
@@ -181,12 +177,10 @@
         </div>
         <div class="row">
             <div class="1u collapsingspacer">&nbsp;</div>
-            <a href="#computing">
             <div class="-5u 1u continuebutton">
                 <p style="padding-top:0.35em;">continue</p>
                 <p><i class="fa fa-angle-double-down fa-3x"></i></p>
             </div>
-            </a>
         </div>
     </div>
     
@@ -215,12 +209,10 @@
         </div>
         <div class="row">
             <div class="1u collapsingspacer">&nbsp;</div>
-            <a href="#tally">
             <div class="-5u 1u continuebutton">
                 <p style="padding-top:0.35em;">continue</p>
                 <p><i class="fa fa-angle-double-down fa-3x"></i></p>
             </div>
-            </a>
         </div>
     </div>
     
@@ -263,18 +255,18 @@ var backgroundScrollController = function( event ) {
         transition = 0.1;
    // console.log(fromTop);
         frac = fromTop/stepheight;
-        $("#background1").css("opacity", Math.max(1 - 3*(frac - 0.55), .7) );
+        $("#background1").css("opacity", Math.max(1 - 3*(frac - 0.55), 0) );
     if(fromTop >= stepheight) {
         frac = (fromTop - stepheight+0.001)/stepheight;
-        $("#background2").css("opacity", Math.max(1 - 4*(frac - 0.55), 0) );
+        $("#background2").css("opacity", Math.max(1 - 4*(frac - 0.4), 0) );
     }
     if(fromTop >= 2*stepheight) {
         frac = (fromTop - 2*stepheight+0.001)/stepheight;
-        $("#background3").css("opacity", Math.max(1 - 4*(frac - 0.55), 0) );
+        $("#background3").css("opacity", Math.max(1 - 4*(frac - 0.4), 0) );
     }
     if(fromTop >= 3*stepheight) {
         frac = (fromTop - 3*stepheight+0.001)/stepheight;
-        $("#background4").css("opacity", Math.max(1 - 4*(frac - 0.55), 0) );
+        $("#background4").css("opacity", Math.max(1 - 4*(frac - 0.4), 0) );
     }
 };
 
@@ -290,11 +282,11 @@ var mapw = Math.floor(containerwidth * 10/12),
 
 /**************************/
 // set up some colors 
-var mapBaseGrey = "#87967c",
+var mapBaseGrey = "rgb(93, 88, 86)",
     mapHoverOrange = "#ffac0d",
     mapSelectedOrange = "#ff8600",
     mapPulseWhite = "#ffdcbd",
-    mapOceanBlue = "#8cfffe",
+    mapOceanBlue = "rgb(250, 250, 255)",
     textColor = "#302407";
 
 
@@ -322,6 +314,10 @@ worldmap.append("path")
     .attr("class", "globe")
     .attr("d", path);
     
+worldmap.append("path")
+    .datum(graticule)
+    .attr("class", "graticule")
+    .attr("d", path);
     
 /**************************/
 // set up svg container for the selected region text    
@@ -340,7 +336,7 @@ var selectionText = svgSelectedRegion.append("g")
     .attr("class", "regiontitle")
     .attr("id", "regiontitle")
     .attr("text-anchor", "middle")
-    .attr("fill", textColor)
+    .attr("fill", "rgb(240, 241, 245)")
     .attr("font-size", "20px")
     .text("");
 
@@ -349,11 +345,11 @@ var selectionSubText = svgSelectedRegion.append("g")
     .attr("height", maptexth)
   .append("text")
     .attr("x", 0.5 * maptextw)
-    .attr("y", 0.65 * maptexth)
+    .attr("y", 0.75 * maptexth)
     .attr("class", "regionsubtitle")
     .attr("id", "regionsubtitle")
     .attr("text-anchor", "middle")
-    .attr("fill", textColor)
+    .attr("fill", "rgb(240, 241, 245)")
     .text("");
 
 /**************************/
@@ -405,7 +401,7 @@ var populateConferences = function() {
                     "fgColor": "rgba(186, 70, 135, 1.0)",
                     "bgColor": "rgba(99, 49, 82, 0.5)",
                     "inputColor": "#302407",
-                    "font": "Inconsolata",
+                    "font": "Open Sans",
                     "fontWeight": 400,
                     "change": function (v) {
                                 confFlight[index] = v;
@@ -440,7 +436,7 @@ var populateConferences = function() {
             "fgColor": "rgba(186, 70, 135, 1.0)",
             "bgColor": "rgba(99, 49, 82, 0.5)",
             "inputColor": "#302407",
-            "font": "Inconsolata",
+            "font": "Open Sans",
             "fontWeight": 400,
             "change": function (v) {
                             confFlight[confi] = v;
@@ -493,7 +489,7 @@ var populateObservations = function() {
                     "fgColor": "rgba(186, 70, 135, 1.0)",
                     "bgColor": "rgba(99, 49, 82, 0.5)",
                     "inputColor": "#302407",
-                    "font": "Inconsolata",
+                    "font": "Open Sans",
                     "fontWeight": 400,
                     "change": function (v) {
                                 obsFlight[index] = v;
@@ -527,7 +523,7 @@ var populateObservations = function() {
         "fgColor": "rgba(186, 70, 135, 1.0)",
         "bgColor": "rgba(99, 49, 82, 0.5)",
         "inputColor": "#302407",
-        "font": "Inconsolata",
+        "font": "Open Sans",
         "fontWeight": 400,
         "change": function (v) {
                         obsFlight[obsi] = v;
@@ -560,7 +556,7 @@ $("#compknob0").knob({
         "fgColor": "rgba(186, 70, 135, 1.0)",
         "bgColor": "rgba(99, 49, 82, 0.5)",
         "inputColor": "#302407",
-        "font": "Inconsolata",
+        "font": "Open Sans",
         "fontWeight": 400,
         "change": function (v) {
                         compPersonal = v * 365; // convert daily to yearly total
@@ -580,7 +576,7 @@ $("#compknob1").knob({
         "fgColor": "rgba(186, 70, 135, 1.0)",
         "bgColor": "rgba(99, 49, 82, 0.5)",
         //"inputColor": "#302407",
-        "font": "Inconsolata",
+        "font": "Open Sans",
         "fontWeight": 400,
         "displayInput": false,
         "change": function (v) {
@@ -628,6 +624,7 @@ for (i = 0; i < regionNames.length; i++) {
                 .data(topojson.feature(region, region.objects.countries).features)
               .enter().append("path")
                 .attr("class", "region "+regionNames[index].name)
+                .style("fill", mapBaseGrey)
                 .attr("d", path);
             thisregion
               .on("mouseover", function(d) {
@@ -675,7 +672,7 @@ for (i = 0; i < regionNames.length; i++) {
                     .attr("opacity", "0")
                     .transition()
                     .duration(200)
-                    .style("opacity", "1");
+                    .style("opacity", "0.7");
                         
                 clicked[index] = true;
         
@@ -726,6 +723,8 @@ var setLetterboxes = function() {
     $(".backgroundimage").css("top", lbexcess);
     $("#topspacer").css("height", lbexcess);
     $(".frame").css("height", stepheight);
+   // var creditheight = 
+    $(".imagecredit").css("bottom", lbexcess +10);
 };
 var resizeEverything = function() {
     mapw = Math.floor($(window).width() * 10/12),

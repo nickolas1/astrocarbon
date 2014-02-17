@@ -5,11 +5,10 @@
 }
 
 body {
-    font-family: "Inconsolata", sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-size: 1em;
     font-weight: 400;
-    background: #fdfdfd;
-    background: #fdf7ef;
+    background: rgb(93, 88, 86);
     color: #302407;
 } 
 
@@ -25,12 +24,14 @@ h1 {
     font-size: 2em;
     text-align: left;
     padding-left: 1em;
+    font-weight: 600;
 }
 
 h2 {
     font-size: 1.35em;
     text-align: left;
     padding-left: 1em;
+    font-weight: 300;
 }
 
 h3 {
@@ -45,7 +46,11 @@ h4 {
 #intro {
     text-align: center;
     z-index: 10;
+    color: rgb(240, 241, 245);
 }
+    #intro .sectionnumber{
+        color: rgb(240, 241, 245);
+    }
 
 
 .sectiontitle {
@@ -54,8 +59,9 @@ h4 {
 
 .continuebutton {
    /* background-color: rgba(0, 0, 0, 0.03);*/
-    cursor: pointer;
+    /*cursor: pointer;*/
     text-align: center;
+    opacity: 0.7;
 }
 
 a{
@@ -106,17 +112,17 @@ a{
 }
 
 .globe {
-    fill: #8cfffe;
-    stroke: #none;
-    shape-rendering: crispEdges;
+    fill: rgb(250, 250, 255);
+    stroke: none;
+   /* shape-rendering: crispEdges;*/
 }
 
-.region {
-    fill: #87967c;
-}
-
-.region.selected{
-    fill: pink;
+.graticule {
+    fill: none;
+    stroke: #787878;
+    stroke-width: 0.5px;
+    stroke-opacity: 0.2;
+    /*shape-rendering: crispEdges;*/
 }
 
 .boundary {
@@ -135,10 +141,12 @@ a{
     position: fixed;
     bottom: 1em;
     right: 2em;
-    z-index: 1000;
+    z-index: 100;
     text-align: right;
     font-size: 0.75em;
-    color: #cdcdcd;
+    /*color: #cdcdcd;*/
+    color: rgb(47, 47, 47);
+    color: black;
 }
 
 .backgroundimage {
@@ -154,23 +162,30 @@ a{
 #background1 {
     height: 100%;
     z-index: -1;
+    background: rgb(35, 36, 42);
+}
+
+#backgroundgauze {
+    height: 100%;
+    z-index: -2;
     background: #fdf7ef;
+    opacity: 0.7;
 }
 
 #background2 {
-    z-index: -2;
+    z-index: -3;
     background: url(../images/Solvay_conference_1927.jpg);
     background-size: 100%;
 }
 
 #background3 {
-    z-index: -3;
+    z-index: -4;
     background: url(../images/CTIO-Sunset-2000.jpg);
     background-size: 100%;
 }
 
 #background4 {
-    z-index: -4;
+    z-index: -5;
     background: url(../images/circuit_board.jpg);
     background-size: 100%;
 }
