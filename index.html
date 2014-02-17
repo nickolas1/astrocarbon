@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href='http://fonts.googleapis.com/css?family=Anonymous+Pro:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="js/jquery.knob.js"></script>
+    <script type="text/javascript" src="js/skel.min.js">
+    {
+        prefix: "css/style",
+        resetCSS: true,
+        boxModel: "border",
+        grid: { gutters: 0 },
+        breakpoints: {
+            'normal': { range: "1-", containers: 'fluid' }, //makes 768 image
+        }
+    }
+    </script> 
+</head>
+
+<body>
+    <div id="letterboxtop" class="letterbox"></div>
+    <div id="letterboxbottom" class="letterbox"></div>
+    <div id="topspacer" class="row">&nbsp;</div>
+    <div id="backgrounds">
+        <div id="background1" class="backgroundimage"></div>
+        <div id="background2" class="backgroundimage">
+            <div class="imagecredit">image credit: Benjamin Couprie</div>
+        </div>
+        <div id="background3" class="backgroundimage">
+            <div class="imagecredit">image credit: T. Abbott and NOAO/AURA/NSF</div>
+        </div>
+        <div id="background4" class="backgroundimage">
+            <div class="imagecredit">image credit: <a href="http://creativity103.com">creativity103.com</a></div>
+        </div>
+    </div>
+    <div class="container frame" id="intro">
+        <div class="row sectiontitle">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="1u sectionnumber">
+                1
+            </div>
+            <div class="9u">
+                <h1>click on your home region</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="10u" id="introWorldMap"></div>
+        </div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="=10u" id="selectedRegionText"></div>
+        </div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <a href="#conferences">
+            <div class="-5u 1u continuebutton" id="introDone" style="opacity:0">
+                <p style="padding-top:0.35em;">continue</p>
+                <p><i class="fa fa-angle-double-down fa-3x"></i></p>
+            </div>
+            </a>
+        </div> 
+    </div>
+    
+    
+    <div class="container frame" id="conferences">
+        <div class="row sectiontitle">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="1u sectionnumber">
+                2
+            </div>
+            <div class="9u">
+                <h1>conference air travel</h1>
+                <h2>how many conferences or research visits to each region per year?</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="-1u 2u selectorknob" id="confknob0parent">
+                <input id="confknob0" style="visibility:hidden;">
+                <h4 id="confregion0" class="knobtitle">pick a home region in step 1!</h4>
+            </div>
+            <div class="2u selectorknob" id="confknob1parent">
+                <input id="confknob1" style="visibility:hidden;">
+                <h4 id="confregion1" class="knobtitle"></h4>
+            </div>
+            <div class="2u selectorknob" id="confknob2parent">
+                <input id="confknob2" style="visibility:hidden;">
+                <h4 id="confregion2" class="knobtitle"></h4>
+            </div>
+            <div class="2u selectorknob" id="confknob3parent">
+                <input id="confknob3" style="visibility:hidden;">
+                <h4 id="confregion3" class="knobtitle"></h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="-1u 2u selectorknob" id="confknob4parent">
+                <input id="confknob4" style="visibility:hidden;">
+                <h4 id="confregion4" class="knobtitle"></h4>
+            </div>
+            <div class="2u selectorknob" id="confknob5parent">
+                <input id="confknob5" style="visibility:hidden;">
+                <h4 id="confregion5" class="knobtitle"></h4>
+            </div>
+            <div class="2u selectorknob" id="confknob6parent">
+                <input id="confknob6" style="visibility:hidden;">
+                <h4 id="confregion6" class="knobtitle"></h4>
+            </div>
+            <div class="2u selectorknob" id="confknob7parent">
+                <input id="confknob7" style="visibility:hidden;">
+                <h4 id="confregion7" class="knobtitle"></h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <a href="#observing">
+            <div class="-5u 1u continuebutton">
+                <p style="padding-top:0.35em;">continue</p>
+                <p><i class="fa fa-angle-double-down fa-3x"></i></p>
+            </div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="container frame" id="observing">
+        <div class="row sectiontitle">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="1u sectionnumber">
+                3
+            </div>
+            <div class="9u">
+                <h1>observing air travel</h1>
+                <h2>how many observing runs to each region per year?</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="-1u 2u selectorknob" id="obsknob0parent">
+                <input id="obsknob0" style="visibility:hidden;">
+                <h4 id="obsregion0" class="knobtitle">pick a home region in step 1!</h4>
+            </div>
+            <div class="2u selectorknob" id="obsknob1parent">
+                <input id="obsknob1" style="visibility:hidden;">
+                <h4 id="obsregion1" class="knobtitle"></h4>
+            </div>
+            <div class="2u selectorknob" id="obsknob2parent">
+                <input id="obsknob2" style="visibility:hidden;">
+                <h4 id="obsregion2" class="knobtitle"></h4>
+            </div>
+            <div class="2u selectorknob" id="obsknob3parent">
+                <input id="obsknob3" style="visibility:hidden;">
+                <h4 id="obsregion3" class="knobtitle"></h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="-1u 2u selectorknob" id="obsknob4parent">
+                <input id="obsknob4" style="visibility:hidden;">
+                <h4 id="obsregion4" class="knobtitle"></h4>
+            </div>
+            <div class="2u selectorknob" id="obsknob5parent">
+                <input id="obsknob5" style="visibility:hidden;">
+                <h4 id="obsregion5" class="knobtitle"></h4>
+            </div>
+            <div class="2u selectorknob" id="obsknob6parent">
+                <input id="obsknob6" style="visibility:hidden;">
+                <h4 id="obsregion6" class="knobtitle"></h4>
+            </div>
+            <div class="2u selectorknob" id="obsknob7parent">
+                <input id="obsknob7" style="visibility:hidden;">
+                <h4 id="obsregion7" class="knobtitle"></h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <a href="#computing">
+            <div class="-5u 1u continuebutton">
+                <p style="padding-top:0.35em;">continue</p>
+                <p><i class="fa fa-angle-double-down fa-3x"></i></p>
+            </div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="container frame" id="computing">
+        <div class="row sectiontitle">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="1u sectionnumber">
+                4
+            </div>
+            <div class="9u">
+                <h1>computing</h1>
+                <h2>how many personal and super computing hours?</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="-1u 4u selectorknob" id="compknob0parent">
+                <input id="compknob0" value=6>
+                <h4 id="compregion0" class="knobtitle">about how many hours per day is your personal computer computing?</h4>
+            </div>
+            <div class="4u selectorknob" id="compknob1parent">
+                <input id="compknob1" value=5>
+                <h4 id="compregion1" class="knobtitle">roughly how many core hours at HPC centers do you use per year?</h4>
+                <div id='fauxHPCval'>0</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <a href="#tally">
+            <div class="-5u 1u continuebutton">
+                <p style="padding-top:0.35em;">continue</p>
+                <p><i class="fa fa-angle-double-down fa-3x"></i></p>
+            </div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="container frame" id="tally">
+        <div class="row sectiontitle">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="1u sectionnumber">
+                5
+            </div>
+            <div class="10u">
+                <h2>your astronomical carbon footprint!</h2>
+            </div>
+        </div>
+        <div class="row" height="500px">
+        <p style="height:500px">hello</p>
+        </div>
+    </div>
+
+<script>
+
+
+
+/**************************/
+// background images
+// load the backgrounds all up with different z-heights: use some function to change opacity 
+// mind explosion image for splash page
+var lbexcess, //letterbox excess
+    stepheight; //transition length for fading background images
+var letterboxcalc = function() {
+    lbexcess = Math.max(0, ($(window).height() - 0.5625 * $(window).width()) / 2); // that number is 9/16
+    stepheight = 1.15*Math.max($(window).width()*0.5625, $(window).height() - 2*lbexcess); // that number is 16/9
+};
+$(document).ready( letterboxcalc );
+$(window).resize( letterboxcalc );
+   
+
+var backgroundScrollController = function( event ) {
+    var fromTop = $(window).scrollTop(),
+        frac = 0,
+        transition = 0.1;
+   // console.log(fromTop);
+        frac = fromTop/stepheight;
+        $("#background1").css("opacity", Math.max(1 - 3*(frac - 0.55), .7) );
+    if(fromTop >= stepheight) {
+        frac = (fromTop - stepheight+0.001)/stepheight;
+        $("#background2").css("opacity", Math.max(1 - 4*(frac - 0.55), 0) );
+    }
+    if(fromTop >= 2*stepheight) {
+        frac = (fromTop - 2*stepheight+0.001)/stepheight;
+        $("#background3").css("opacity", Math.max(1 - 4*(frac - 0.55), 0) );
+    }
+    if(fromTop >= 3*stepheight) {
+        frac = (fromTop - 3*stepheight+0.001)/stepheight;
+        $("#background4").css("opacity", Math.max(1 - 4*(frac - 0.55), 0) );
+    }
+};
+
+$(window).scroll(backgroundScrollController);
+
+var containerwidth = parseInt(d3.select("#intro").style("width"));
+console.log(containerwidth);
+
+var mapw = Math.floor(containerwidth * 10/12),
+    maph = Math.floor(mapw * 0.45),
+    mapscale = 115 * (containerwidth / 900),
+    uw = containerwidth / 12;  // width of a 1u div
+
+/**************************/
+// set up some colors 
+var mapBaseGrey = "#87967c",
+    mapHoverOrange = "#ffac0d",
+    mapSelectedOrange = "#ff8600",
+    mapPulseWhite = "#ffdcbd",
+    mapOceanBlue = "#8cfffe",
+    textColor = "#302407";
+
+
+/**************************/
+// set up svg container for the map 
+var svgMap = d3.select("#introWorldMap").append("svg")
+    .attr("width", mapw)
+    .attr("height", maph);
+    
+var worldmap = svgMap.append("g")
+    .attr("width", mapw)
+    .attr("height", maph);
+    
+var projection = d3.geo.bromley()
+    .scale(mapscale)
+    .translate([mapw / 2, maph / 2]);
+
+var graticule = d3.geo.graticule();
+
+var path = d3.geo.path()
+    .projection(projection);
+
+worldmap.append("path")
+    .datum({type: "Sphere"})
+    .attr("class", "globe")
+    .attr("d", path);
+    
+    
+/**************************/
+// set up svg container for the selected region text    
+var maptextw = mapw;
+var maptexth = maph / 6;
+var svgSelectedRegion = d3.select("#selectedRegionText").append("svg")
+    .attr("width", maptextw)
+    .attr("height", maptexth);
+
+var selectionText = svgSelectedRegion.append("g")
+    .attr("width", maptextw)
+    .attr("height", maptexth)
+  .append("text")
+    .attr("x", 0.5 * maptextw)
+    .attr("y", 0.45 * maptexth)
+    .attr("class", "regiontitle")
+    .attr("id", "regiontitle")
+    .attr("text-anchor", "middle")
+    .attr("fill", textColor)
+    .attr("font-size", "20px")
+    .text("");
+
+var selectionSubText = svgSelectedRegion.append("g")
+    .attr("width", maptextw)
+    .attr("height", maptexth)
+  .append("text")
+    .attr("x", 0.5 * maptextw)
+    .attr("y", 0.65 * maptexth)
+    .attr("class", "regionsubtitle")
+    .attr("id", "regionsubtitle")
+    .attr("text-anchor", "middle")
+    .attr("fill", textColor)
+    .text("");
+
+/**************************/
+// read in region boundary json files and define their names indices etc. 
+var regionNames = [
+    {id:0, name:"africa"}, {id:1, name:"antarctica"}, {id:2, name:"asia"}, {id:3, name:"europe"}, {id:4, name:"northernamericas"}, {id:5, name:"oceania"}, {id:6, name:"southamerica"}
+    ];
+var clicked = [false, false, false, false, false, false, false, false];
+var regionTitles = ["Africa", "Antarctica", "Asia", "Europe", "Northern Americas", "Oceania", "South America"];
+var regionSubTitles = ["", "", "(defined as AFC minus Australia)", "(defined as UEFA)", "(including Caribbean but not Hawaii)","(defined as OFC plus Australia)",""];
+var confFlight0, confFlight1, confFlight2, confFlight3, confFlight4, 
+    confFlight5, confFlight6, confFlight7;
+var confFlight = [0, 0, 0, 0, 0, 0, 0, 0]; //one counter for each potential inter-regional flight, plus one for regional flights
+var obsFlight = [0, 0, 0, 0, 0, 0, 0, 0]; //one counter for each potential inter-regional flight, plus one for regional flights
+var compPersonal = 0;
+var compHPC = 0;   
+            
+/**************************/
+// this function handles populating the conference travel panel 
+var populateConferences = function() {
+    var knobid, 
+        knobparentid,
+        knbotextid,
+        regionalstring,
+        i,
+        confi = 0,
+        confistring;
+    for (i = 0; i < regionNames.length; i++) {
+        if (i == 1) continue; // don't allow conferences in antarctica
+        if (!clicked[i]) {
+            var setupknob = (function (index) {
+                confistring = String(confi);
+                knobid = "#confknob"+confistring;
+                knobparentid = "#confknob"+confistring+"parent";
+                knobtextid = "#confregion"+confistring;
+                $(knobid).css("visibility", "visible");
+                $(knobparentid).css("visibility", "visible");
+                $(knobtextid).html(regionTitles[i]);
+                $(knobid).knob({
+                    "width": Math.floor(1.5*uw),
+                    "height": Math.floor(1.5*uw),
+                    "thickness": 0.15,
+                    "min": 0,
+                    "max": 8,
+                    "cursor": 32, //should be 36 but that seems to overlap unpleasantly
+                    "scroll": false,
+                    "angleOffset": 18,
+                    "angleArc": 324, //360-36
+                    "fgColor": "rgba(186, 70, 135, 1.0)",
+                    "bgColor": "rgba(99, 49, 82, 0.5)",
+                    "inputColor": "#302407",
+                    "font": "Inconsolata",
+                    "fontWeight": 400,
+                    "change": function (v) {
+                                confFlight[index] = v;
+                                console.log(confFlight);
+                              }    
+                });
+            }) (confi);
+            confi += 1; 
+        }
+        else {
+            regionalstring = "within "+regionTitles[i];
+        };
+    };
+    if (!clicked[1]){  //don't allow internal conference travel in antarctica
+        confistring = String(confi);
+        knobid = "#confknob"+confistring;
+        knobparentid = "#confknob"+confistring+"parent";
+        knobtextid = "#confregion"+confistring;
+        $(knobid).css("visibility", "visible");
+        $(knobparentid).css("visibility", "visible");
+        $(knobtextid).html(regionalstring);
+        $(knobid).knob({
+            "width": Math.floor(1.5*uw),
+            "height": Math.floor(1.5*uw),
+            "thickness": 0.15,
+            "min": 0,
+            "max": 8,
+            "cursor": 32,
+            "scroll": false,
+            "angleOffset": 18,
+            "angleArc": 324, 
+            "fgColor": "rgba(186, 70, 135, 1.0)",
+            "bgColor": "rgba(99, 49, 82, 0.5)",
+            "inputColor": "#302407",
+            "font": "Inconsolata",
+            "fontWeight": 400,
+            "change": function (v) {
+                            confFlight[confi] = v;
+                            console.log(confFlight);
+                        }   
+        });
+    } 
+    
+    for (i = confi+1; i < 8; i++) {  // hide extraneous knobs
+        knobid = "#confknob"+String(i);
+        knobparentid = "#confknob"+String(i)+"parent";
+        $(knobid).css("visibility", "hidden");
+        $(knobparentid).css("visibility", "hidden");
+    };
+};
+
+
+
+/**************************/
+// this function handles populating the observations travel panel 
+var populateObservations = function() {
+    var knobid, 
+        knobparentid,
+        knbotextid,
+        regionalstring,
+        i,
+        obsi = 0,
+        obsistring;
+    for (i = 0; i < regionNames.length; i++) {
+        if (!clicked[i]) {
+            var setupknob = (function (index) {
+                obsistring = String(obsi);
+                knobid = "#obsknob"+obsistring;
+                knobparentid = "#obsknob"+obsistring+"parent";
+                knobtextid = "#obsregion"+obsistring;
+                $(knobid).css("visibility", "visible");
+                $(knobparentid).css("visibility", "visible");
+                $(knobtextid).html(regionTitles[i]);
+                console.log("wdth",Math.floor(1.5*uw));
+                $(knobid).knob({
+                    "width": Math.floor(1.5*uw),
+                    "height": Math.floor(1.5*uw),
+                    "thickness": 0.15,
+                    "min": 0,
+                    "max": 8,
+                    "cursor": 32, //should be 36 but that seems to overlap unpleasantly
+                    "scroll": false,
+                    "angleOffset": 18,
+                    "angleArc": 324, 
+                    "fgColor": "rgba(186, 70, 135, 1.0)",
+                    "bgColor": "rgba(99, 49, 82, 0.5)",
+                    "inputColor": "#302407",
+                    "font": "Inconsolata",
+                    "fontWeight": 400,
+                    "change": function (v) {
+                                obsFlight[index] = v;
+                                console.log(obsFlight);
+                              }    
+                });
+            }) (obsi);
+            obsi += 1; 
+        }
+        else {
+            regionalstring = "within "+regionTitles[i];
+        };
+    };
+    obsistring = String(obsi);
+    knobid = "#obsknob"+obsistring;
+    knobparentid = "#obsknob"+obsistring+"parent";
+    knobtextid = "#obsregion"+obsistring;
+    $(knobid).css("visibility", "visible");
+    $(knobparentid).css("visibility", "visible");
+    $(knobtextid).html(regionalstring);
+    $(knobid).knob({
+        "width": Math.floor(1.5*uw),
+        "height": Math.floor(1.5*uw),
+        "thickness": 0.15,
+        "min": 0,
+        "max": 8,
+        "cursor": 32,
+        "scroll": false,
+        "angleOffset": 18,
+        "angleArc": 324, //360-36
+        "fgColor": "rgba(186, 70, 135, 1.0)",
+        "bgColor": "rgba(99, 49, 82, 0.5)",
+        "inputColor": "#302407",
+        "font": "Inconsolata",
+        "fontWeight": 400,
+        "change": function (v) {
+                        obsFlight[obsi] = v;
+                        console.log(obsFlight);
+                    }   
+    });
+     
+    
+    for (i = obsi+1; i < 8; i++) {  // hide extraneous knobs
+        knobid = "#obsknob"+String(i);
+        knobparentid = "#obsknob"+String(i)+"parent";
+        $(knobid).css("visibility", "hidden");
+        $(knobparentid).css("visibility", "hidden");
+    };
+};
+
+/**************************/
+// this bit handles populating the computer hours knobs
+$("#compknob0").knob({
+        "width": Math.floor(2.5*uw),
+        "height": Math.floor(2.5*uw),
+        "thickness": 0.15,
+        "min": 0,
+        "max": 24,
+       // "value": 6,
+        "cursor": 15,
+        "scroll": false,
+        "angleOffset": 18,
+        "angleArc": 324, //360-36
+        "fgColor": "rgba(186, 70, 135, 1.0)",
+        "bgColor": "rgba(99, 49, 82, 0.5)",
+        "inputColor": "#302407",
+        "font": "Inconsolata",
+        "fontWeight": 400,
+        "change": function (v) {
+                        compPersonal = v * 365; // convert daily to yearly total
+                    }   
+    });
+    
+$("#compknob1").knob({
+        "width": Math.floor(2.5*uw),
+        "height": Math.floor(2.5*uw),
+        "thickness": 0.15,
+        "min": 5,
+        "max": 16,
+        "cursor": 32,
+        "scroll": false,
+        "angleOffset": 18,
+        "angleArc": 324, //360-36
+        "fgColor": "rgba(186, 70, 135, 1.0)",
+        "bgColor": "rgba(99, 49, 82, 0.5)",
+        //"inputColor": "#302407",
+        "font": "Inconsolata",
+        "fontWeight": 400,
+        "displayInput": false,
+        "change": function (v) {
+                        var compHPCstring = "0";
+                        if (v < 6) {
+                            compHPC = 0;
+                        }
+                        else {
+                            var rawvalue = Math.pow(10, v/2)
+                            compHPC = rawvalue.toPrecision(1);
+                            compHPCstring = String(compHPC).charAt(0)+"x10<sup>"+String(compHPC).charAt(3)+"</sup>"
+                        }
+                        $("#fauxHPCval").html(compHPCstring);
+                        console.log(rawvalue,compHPC);
+                        console.log(compHPCstring.charAt(0),compHPCstring.charAt(3));
+                    }   
+    });
+
+// god this is ugly
+var addFauxHPCval = function() {
+    var a = parseInt($("#compknob1parent").css("width")) * 2.5/4; //width of dial compared to it's container div
+    var b = parseInt($("#compknob1parent").css("width")) * 1.5/8; //remaining width / 2 (4 - 2.5)/4/4
+    console.log(a,b);
+    $("#fauxHPCval").css({
+        "position": "absolute",
+        "top": $("#compknob1parent").position().top,
+        "left": $("#compknob1parent").position().left + b,
+        "width": a,
+        "height": a,
+        "font-size": $("#compknob0").css("font-size"),
+        "line-height": a+"px",
+        "z-index": "-1"
+    });
+};
+
+/**************************/
+// this bit handles populating the map and attaching event listeners to highlight 
+// the selected region.
+var globalclicked = -1;
+for (i = 0; i < regionNames.length; i++) {
+    var makeRegion = (function (index) {
+        d3.json(regionNames[i].name+".json", function(error, region) {
+            var thisregion = worldmap.append("g");
+            thisregion.selectAll(".countries")
+                .data(topojson.feature(region, region.objects.countries).features)
+              .enter().append("path")
+                .attr("class", "region "+regionNames[index].name)
+                .attr("d", path);
+            thisregion
+              .on("mouseover", function(d) {
+                if(!clicked[index]){
+                    d3.selectAll("."+regionNames[index].name)
+                        .transition()
+                        .duration(150)
+                        .style("fill", mapHoverOrange)
+                }
+              })
+              .on("mouseout", function(d) {
+                console.log(clicked[index]);
+                if(!clicked[index]){
+                    d3.selectAll("."+regionNames[index].name)
+                        .transition()
+                        .duration(200)
+                        .style("fill", mapBaseGrey)
+                }
+              })  
+              .on("click", function(d) {
+                d3.selectAll("."+regionNames[index].name)
+                    .style("fill", mapHoverOrange)
+                    .transition()
+                    .duration(60)
+                    .style("fill", mapPulseWhite)
+                    .transition()
+                    .delay(60)
+                    .duration(180)
+                    .style("fill", mapSelectedOrange)
+                    .attr("class", regionNames[index].name+" selected");
+                d3.select("#regiontitle")
+                    .text(regionTitles[index])
+                    .attr("opacity", "0")
+                    .transition()
+                    .duration(200)
+                    .attr("opacity", "1");
+                d3.select("#regionsubtitle")
+                    .text(regionSubTitles[index])
+                    .attr("opacity", "0")
+                    .transition()
+                    .delay(100)
+                    .duration(200)
+                    .attr("opacity", "1");
+                d3.select("#introDone")
+                    .attr("opacity", "0")
+                    .transition()
+                    .duration(200)
+                    .style("opacity", "1");
+                        
+                clicked[index] = true;
+        
+                if(globalclicked >= 0) { // unset whatever was chosen before
+                    console.log("prev selected "+regionNames[globalclicked].name+" "+globalclicked);
+                    clicked[globalclicked] = !clicked[globalclicked];
+                    d3.selectAll("."+regionNames[globalclicked].name)
+                        .attr("class", "region "+regionNames[globalclicked].name)
+                        .transition()
+                        .duration(200)
+                        .style("fill", mapBaseGrey);
+                }
+                
+                if(globalclicked != index) { // this if else allows unclicking a selected region to work properly
+                    globalclicked = regionNames[index].id;
+                    populateConferences();
+                    populateObservations();
+                    addFauxHPCval();
+                }
+                else {
+                    globalclicked = -1;
+                    d3.select("#regiontitle")
+                        .attr("opacity", "1")
+                        .transition()
+                        .duration(180)
+                        .attr("opacity", "0");
+                    d3.select("#regionsubtitle")
+                        .attr("opacity", "1")
+                        .transition()
+                        .duration(180)
+                        .attr("opacity", "0");
+                    d3.select("#introDone")
+                        .attr("opacity", "1")
+                        .transition()
+                        .duration(200)
+                        .style("opacity", "0");
+                };
+              });
+        });
+    }) (i); 
+};
+addFauxHPCval();  //jquery placement jackassery in case they don't choose a country
+
+
+// set up placeholder dials at first
+var setLetterboxes = function() {
+    $(".letterbox").css("height", lbexcess);
+    $(".backgroundimage").css("top", lbexcess);
+    $("#topspacer").css("height", lbexcess);
+    $(".frame").css("height", stepheight);
+};
+var resizeEverything = function() {
+    mapw = Math.floor($(window).width() * 10/12),
+    maph = Math.floor(mapw * 0.45),
+    mapscale = 115 * ($(window).width() / 900),
+    uw = $(window).width() / 12;  // width of a 1u div
+    console.log("uw",uw);
+    populateConferences();
+    populateObservations();
+    addFauxHPCval();
+    setLetterboxes();
+};
+$(function() {
+    populateConferences();
+    populateObservations();
+    addFauxHPCval();
+    setLetterboxes();
+});
+
+// letterbox resize handling
+$(window).resize( resizeEverything );
+
+    
+
+</script>

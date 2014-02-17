@@ -1,0 +1,176 @@
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+    font-family: "Inconsolata", sans-serif;
+    font-size: 1em;
+    font-weight: 400;
+    background: #fdfdfd;
+    background: #fdf7ef;
+    color: #302407;
+} 
+
+sup 
+{
+    position: relative;
+    font-size:0.7em; 
+    /*vertical-align:super;*/
+    top: -0.5em;
+}
+
+h1 {
+    font-size: 2em;
+    text-align: left;
+    padding-left: 1em;
+}
+
+h2 {
+    font-size: 1.35em;
+    text-align: left;
+    padding-left: 1em;
+}
+
+h3 {
+    font-size: 0.5em;
+}
+
+h4 {
+    font-size: 1.1em;
+    text-align: center;
+}
+
+#intro {
+    text-align: center;
+    z-index: 10;
+}
+
+
+.sectiontitle {
+    padding-top: 0.5em;
+}
+
+.continuebutton {
+   /* background-color: rgba(0, 0, 0, 0.03);*/
+    cursor: pointer;
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+#letterboxtop {
+    height: 0.1vh;
+}
+
+#letterboxbottom {
+    bottom: 0px;
+    height: 0.1vh;
+}
+
+.letterbox {
+    position: fixed;
+    z-index: 40;
+    width: 100vw;
+    background-color: black;
+}
+
+.sectionnumber {
+    height: 75px; /* container width / 12 */
+    line-height: 75px;
+    /*border-style: solid;
+    border-width: 3px;*/
+    /*background-color: rgba(255, 255, 255, 0.3);*/
+   /* border-color: #302407;*/
+    color: #302407;
+    font-size: 8em;
+    font-weight: 700;
+    opacity:0.15;
+    text-align: center;
+}    
+
+.regiontitle {
+    font-size: 3em;
+}
+
+.regionsubtitle {
+    font-size: 0.75em;
+}
+
+.knobtitle {
+    padding-bottom: 2em;
+}
+
+.globe {
+    fill: #8cfffe;
+    stroke: #none;
+    shape-rendering: crispEdges;
+}
+
+.region {
+    fill: #87967c;
+}
+
+.region.selected{
+    fill: pink;
+}
+
+.boundary {
+    stroke: #662900;
+    stroke-width: 2.5px;
+    fill: none;
+}
+
+.selectorknob {
+    text-align: center;
+}
+
+
+
+.imagecredit {
+    position: fixed;
+    bottom: 1em;
+    right: 2em;
+    z-index: 1000;
+    text-align: right;
+    font-size: 0.75em;
+    color: #cdcdcd;
+}
+
+.backgroundimage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: none;
+    background-attachment: fixed;
+}
+
+#background1 {
+    height: 100%;
+    z-index: -1;
+    background: #fdf7ef;
+}
+
+#background2 {
+    z-index: -2;
+    background: url(../images/Solvay_conference_1927.jpg);
+    background-size: 100%;
+}
+
+#background3 {
+    z-index: -3;
+    background: url(../images/CTIO-Sunset-2000.jpg);
+    background-size: 100%;
+}
+
+#background4 {
+    z-index: -4;
+    background: url(../images/circuit_board.jpg);
+    background-size: 100%;
+}
