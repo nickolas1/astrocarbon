@@ -7,7 +7,7 @@ countries.json \
 ne_110m_admin_0_map_units/ne_110m_admin_0_map_units.shp
 
 topojson \
--o data/europe.json \
+-o europe.json \
 countries.json
 
 rm countries.json
@@ -25,7 +25,7 @@ ne_110m_admin_0_map_units/ne_110m_admin_0_map_units.shp
 # with lat/long about -157/21
 # 
 topojson \
--o data/northernamericas.json \
+-o northernamericas.json \
 countries.json
 #
 rm countries.json
@@ -39,7 +39,7 @@ countries.json \
 ne_110m_admin_0_map_units/ne_110m_admin_0_map_units.shp
 
 topojson \
--o data/southamerica.json \
+-o southamerica.json \
 countries.json
 
 rm countries.json
@@ -54,7 +54,7 @@ countries.json \
 ne_110m_admin_0_map_units/ne_110m_admin_0_map_units.shp
 
 topojson \
--o data/asia.json \
+-o asia.json \
 countries.json
 
 rm countries.json
@@ -68,7 +68,7 @@ countries.json \
 ne_110m_admin_0_map_units/ne_110m_admin_0_map_units.shp
 
 topojson \
--o data/oceania.json \
+-o oceania.json \
 countries.json
 
 rm countries.json
@@ -83,7 +83,7 @@ countries.json \
 ne_110m_admin_0_map_units/ne_110m_admin_0_map_units.shp
 
 topojson \
--o data/africa.json \
+-o africa.json \
 countries.json
 
 rm countries.json
@@ -97,7 +97,7 @@ countries.json \
 ne_110m_admin_0_map_units/ne_110m_admin_0_map_units.shp
 
 topojson \
--o data/antarctica.json \
+-o antarctica.json \
 countries.json
 
 rm countries.json
@@ -111,7 +111,7 @@ countries.json \
 ne_110m_admin_1_states_provinces/ne_110m_admin_1_states_provinces_shp.shp
 
 topojson \
--o data/hawaii.json \
+-o hawaii.json \
 countries.json
 
 rm countries.json

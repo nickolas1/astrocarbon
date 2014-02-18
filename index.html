@@ -332,7 +332,7 @@ var selectionText = svgSelectedRegion.append("g")
     .attr("height", maptexth)
   .append("text")
     .attr("x", 0.5 * maptextw)
-    .attr("y", 0.55 * maptexth)
+    .attr("y", 0.6 * maptexth)
     .attr("class", "regiontitle")
     .attr("id", "regiontitle")
     .attr("text-anchor", "middle")
@@ -345,7 +345,7 @@ var selectionSubText = svgSelectedRegion.append("g")
     .attr("height", maptexth)
   .append("text")
     .attr("x", 0.5 * maptextw)
-    .attr("y", 0.85 * maptexth)
+    .attr("y", 0.95 * maptexth)
     .attr("class", "regionsubtitle")
     .attr("id", "regionsubtitle")
     .attr("text-anchor", "middle")
@@ -355,11 +355,11 @@ var selectionSubText = svgSelectedRegion.append("g")
 /**************************/
 // read in region boundary json files and define their names indices etc. 
 var regionNames = [
-    {id:0, name:"africa"}, {id:1, name:"antarctica"}, {id:2, name:"asia"}, {id:3, name:"europe"}, {id:4, name:"northernamericas"}, {id:5, name:"hawaii"}, {id:6, name:"oceania"}, {id:7, name:"southamerica"}
+    {id:0, name:"africa"}, {id:1, name:"antarctica"}, {id:2, name:"asia"}, {id:3, name:"europe"}, {id:4, name:"hawaii"}, {id:5, name:"northernamericas"}, {id:6, name:"oceania"}, {id:7, name:"southamerica"}
     ];
 var clicked = [false, false, false, false, false, false, false, false];
-var regionTitles = ["Africa", "Antarctica", "Asia", "Europe", "Northern Americas","Hawaii", "Oceania", "South America"];
-var regionSubTitles = ["", "", "(defined as AFC minus Australia)", "(defined as UEFA)", "(including Caribbean but not Hawaii)", "", "(defined as OFC plus Australia)",""];
+var regionTitles = ["Africa", "Antarctica", "Asia", "Europe", "Hawaii", "Northern Americas", "Oceania", "South America"];
+var regionSubTitles = ["", "(awesome)", "(defined as AFC minus Australia)", "(defined as UEFA)", "", "(including Caribbean but not Hawaii)", "(defined as OFC plus Australia)",""];
 var confFlight0, confFlight1, confFlight2, confFlight3, confFlight4, 
     confFlight5, confFlight6, confFlight7;
 var confFlight = [0, 0, 0, 0, 0, 0, 0, 0]; //one counter for each potential inter-regional flight, plus one for regional flights
@@ -378,6 +378,7 @@ var populateConferences = function() {
         confi = 0,
         confistring;
     for (i = 0; i < regionNames.length; i++) {
+        confFlight[i] = 0;
         if (i == 1) continue; // don't allow conferences in antarctica
         if (!clicked[i]) {
             var setupknob = (function (index) {
@@ -395,6 +396,9 @@ var populateConferences = function() {
                                 console.log(confFlight);
                               }    
                 });
+                $(knobid)
+                    .val(0)
+                    .trigger('change');
             }) (confi);
             confi += 1; 
         }
@@ -417,11 +421,20 @@ var populateConferences = function() {
                             console.log(confFlight);
                         }   
         });
+        $(knobid)
+            .val(1)
+            .trigger('change');
+        confFlight[confi] = 1;
+    } else {
+        confi -= 1;
     } 
     
     for (i = confi+1; i < 8; i++) {  // hide extraneous knobs
         knobid = "#confknob"+String(i);
         knobparentid = "#confknob"+String(i)+"parent";
+        $(knobid)
+            .val(0)
+            .trigger('change'); // set to 0 for future cost calculation purposes
         $(knobid).css("visibility", "hidden");
         $(knobparentid).css("visibility", "hidden");
     };
@@ -440,6 +453,7 @@ var populateObservations = function() {
         obsi = 0,
         obsistring;
     for (i = 0; i < regionNames.length; i++) {
+        obsFlight[i] = 0;
         if (!clicked[i]) {
             var setupknob = (function (index) {
                 obsistring = String(obsi);
@@ -457,6 +471,9 @@ var populateObservations = function() {
                                 console.log(obsFlight);
                               }    
                 });
+                $(knobid)
+                    .val(0)
+                    .trigger('change');
             }) (obsi);
             obsi += 1; 
         }
@@ -478,7 +495,9 @@ var populateObservations = function() {
                         console.log(obsFlight);
                     }   
     });
-     
+    $(knobid)
+        .val(0)
+        .trigger('change');
     
     for (i = obsi+1; i < 8; i++) {  // hide extraneous knobs
         knobid = "#obsknob"+String(i);
@@ -525,6 +544,8 @@ $("#compknob1").knob({
                         $("#fauxHPCval").html(compHPCstring);
                         console.log(rawvalue,compHPC);
                         console.log(compHPCstring.charAt(0),compHPCstring.charAt(3));
+                        parseFlights();
+                        costComputers();
                     }   
     });
 
@@ -553,12 +574,29 @@ for (i = 0; i < regionNames.length; i++) {
     var makeRegion = (function (index) {
         d3.json("data/"+regionNames[i].name+".json", function(error, region) {
             var thisregion = worldmap.append("g");
-            thisregion.selectAll(".countries")
-                .data(topojson.feature(region, region.objects.countries).features)
-              .enter().append("path")
-                .attr("class", "region "+regionNames[index].name)
-                .style("fill", mapBaseGrey)
-                .attr("d", path);
+            if(index === 4){ // make hawaii larger than it really is so that you can actually click it
+                thisregion.selectAll(".countries")
+                    .data(topojson.feature(region, region.objects.countries).features)
+                  .enter().append("path")
+                    .attr("class", "region "+regionNames[index].name)
+                    .style("fill", mapBaseGrey)
+                    .attr("d", path)
+                    .attr("transform", function(d) {
+                        var centroid = path.centroid(d),
+                            x = centroid[0],
+                            y = centroid[1];
+                        return "translate(" + x + "," + y + ")"
+                        + "scale(2)"
+                        + "translate(" + -x + "," + -y + ")";
+                    });
+            } else {
+                thisregion.selectAll(".countries")
+                    .data(topojson.feature(region, region.objects.countries).features)
+                  .enter().append("path")
+                    .attr("class", "region "+regionNames[index].name)
+                    .style("fill", mapBaseGrey)
+                    .attr("d", path);
+            };
             thisregion
               .on("mouseover", function(d) {
                 if(!clicked[index]){
@@ -650,6 +688,149 @@ for (i = 0; i < regionNames.length; i++) {
 addFauxHPCval();  //jquery placement jackassery in case they don't choose a country
 
 
+
+/**************************/
+// this bit parses the flight results
+var confFlightMatrix = [
+            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [00, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]],
+    obsFlightMatrix = [
+            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]];
+var parseFlights = function() {
+    var confFlightParsed = confFlight.slice(0),
+        obsFlightParsed = obsFlight.slice(0);
+    var i,
+        j,
+        confmax = 6,
+        obsmax = 7,
+        tokill;
+    for (i = 0; i < regionNames.length; i++) { // in case a new country was selected, reset these costs
+        for (j = i; j < regionNames.length; j++) {
+            confFlightMatrix[i][j] = 0;
+            obsFlightMatrix[i][j] = 0;
+        };
+    };
+    if (globalclicked === 1) {
+        confmax = 7; // this will be zero- internal conferences in antarctica are unlikely
+    };
+    console.log(confFlightParsed);
+    confFlightParsed.splice(globalclicked, 0, confFlight[confmax]); // move internal flights into their place
+    console.log(confFlightParsed);
+    obsFlightParsed.splice(globalclicked, 0, obsFlight[obsmax]);
+    tokill = confmax+1;
+    if( globalclicked > confmax ) {
+        tokill = confmax;
+    };
+    confFlightParsed[tokill] = 0;
+    obsFlightParsed[obsmax+1] = 0;  
+    console.log(confFlightParsed);
+    console.log(tokill,confmax,obsmax);
+    console.log(confFlight);
+    console.log(confFlightParsed);
+    console.log(obsFlight);
+    console.log(obsFlightParsed);
+    for (i = 0; i <= obsmax; i++) {
+        var ind0 = Math.min(globalclicked, i),
+            ind1 = Math.max(globalclicked, i);
+        confFlightMatrix[ind0][ind1] = confFlightParsed[i];
+        obsFlightMatrix[ind0][ind1] = obsFlightParsed[i];
+    };
+    costFlights();
+}
+
+
+/**************************/
+// this bit calculates the carbon tonnage for flights. values in tons of CO2
+var flightCostMatrix = [
+            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [00, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]];
+// calculated from these airports using http://www.travelnav.com/
+// units are metric tons of co2            
+flightCostMatrix[0][0] = 0.5; //intra Africa     JNB
+flightCostMatrix[0][1] = 10; //Africa - Antarctica  'Antarctica'
+flightCostMatrix[0][2] = 2.48; //Africa - Asia      PEK
+flightCostMatrix[0][3] = 1.9; //Africa - Europe    AMS
+flightCostMatrix[0][4] = 4.06; //Africa - Hawaii      HNL
+flightCostMatrix[0][5] = 2.96; //Africa - N America     ORD
+flightCostMatrix[0][6] = 2.34; //Africa - Oceania      SYD
+flightCostMatrix[0][7] = 1.94; //Africa - S America      SCL
+
+flightCostMatrix[1][1] = 0.1; //intra Antarctica
+flightCostMatrix[1][2] = 3.06; //Antarctica - Asia
+flightCostMatrix[1][3] = 3.18; //Antarctica - Europe
+flightCostMatrix[1][4] = 2.76; //Antarctica - Hawaii
+flightCostMatrix[1][5] = 3.12; //Antarctica - N America
+flightCostMatrix[1][6] = 1.44; //Antarctica - Oceania
+flightCostMatrix[1][7] = 1.34; //Antarctica - S America
+
+flightCostMatrix[2][2] = 0.5; //intra Asia
+flightCostMatrix[2][3] = 1.66; //Asia - Europe
+flightCostMatrix[2][4] = 1.92; //Asia - Hawaii
+flightCostMatrix[2][5] = 2.24; //Asia - N America
+flightCostMatrix[2][6] = 1.88; //Asia - Oceania
+flightCostMatrix[2][7] = 4.02; //Asia - S America
+
+flightCostMatrix[3][3] = 0.5; //intra Europe
+flightCostMatrix[3][4] = 2.46; //Europe - Hawaii
+flightCostMatrix[3][5] = 1.4; //Europe - N America
+flightCostMatrix[3][6] = 3.52; //Europe - Oceania
+flightCostMatrix[3][7] = 2.54; //Europe - S America
+
+flightCostMatrix[4][4] = 0.1; //intra Hawaii
+flightCostMatrix[4][5] = 2.16; //Hawaii - N America
+flightCostMatrix[4][6] = 1.92; //Hawaii - Oceania
+flightCostMatrix[4][7] = 2.34; //Hawaii - S America
+
+flightCostMatrix[5][5] = 0.5; //intra N America
+flightCostMatrix[5][6] = 3.14; //N America - Oceania
+flightCostMatrix[5][7] = 1.8; //N America - S America
+
+flightCostMatrix[6][6] = 0.5; //intra Oceania
+flightCostMatrix[6][7] = 2.4; //Oceania - S America
+
+flightCostMatrix[7][7] = 0.5; //intra S America
+
+var confFlightCost,
+    obsFlightCost,
+    compPersonalCost,
+    compHPCCost;
+    
+var costFlights = function() {
+    confFlightCost = 0;
+    obsFlightCost = 0;
+    var i,
+        j;
+    for (i = 0; i < regionNames.length; i++) {
+        for (j = i; j < regionNames.length; j++) {
+            confFlightCost += flightCostMatrix[i][j] * confFlightMatrix[i][j];
+            obsFlightCost += flightCostMatrix[i][j] * obsFlightMatrix[i][j];
+        };
+    };
+    console.log("obs flight cost: ",obsFlightCost);
+    console.log("conf flight cost: ",confFlightCost);
+};
+
+
+var costComputers = function() {
+    // compPersonal is yearly hours of use
+    // compHPC is yearly core hours 
+    var compPeronsalWh,
+        compHPCWh;
+    compPersonalWh = compPersonal * 60; // assuming 60 Watts during use. doesn't really matter, this is negligible compared to flights
+    compHPCWh = compHPC * 10.e9 / 500.e6; // assuming 10 GFLOPS per core, 500 MFLOPS per Watt
+    // assume 0.5 kg CO2 per kWh
+    compPersonalCost = compPersonalWh / 1000.0 * 0.5 / 1000.0;
+    compHPCCost = compHPCWh / 1000.0 * 0.5 / 1000.0;
+    console.log(compPersonalWh, compHPCWh);
+    console.log(compPersonalCost, compHPCCost);
+};
+
+
+
 var setLetterboxes = function() {
     $(".letterbox").css("height", lbexcess);
     $(".backgroundimage").css("top", lbexcess);
@@ -658,6 +839,7 @@ var setLetterboxes = function() {
    // var creditheight = 
     $(".imagecredit").css("bottom", lbexcess +10);
 };
+
 var resizeEverything = function() {
     mapw = Math.floor($(window).width() * 10/12),
     maph = Math.floor(mapw * 0.45),

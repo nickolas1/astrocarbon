@@ -52,6 +52,10 @@ h4 {
         color: rgb(240, 241, 245);
     }
     
+    #intro h1 {
+        font-weight: 300;
+    }
+    
 #computing h4 {
     padding-left: 1em;
     padding-right: 1em;
@@ -105,10 +109,12 @@ a{
 
 .regiontitle {
     font-size: 3em;
+    font-weight: 300;
 }
 
 .regionsubtitle {
     font-size: 0.75em;
+    font-weight: 400;
 }
 
 .knobtitle {
