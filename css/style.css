@@ -6,7 +6,7 @@
 
 body {
     font-family: "Open Sans", sans-serif;
-    font-size: 1em;
+    font-size: 12pt;
     font-weight: 400;
     background: rgb(93, 88, 86);
     color: #302407;
@@ -226,4 +226,45 @@ a{
     z-index: -6;
     background: url(../images/circuit_board.jpg);
     background-size: 100%;
+}
+
+.co2label {
+    font-weight: 300;
+    font-size: 0.8em;
+    stroke: #333333;
+    opacity: 0.7;
+}
+
+.co2line {
+    fill: none;
+    stroke: #666666;
+    stroke-width: 2px;
+}
+
+.horizontalGrid {
+    fill: none;
+    stroke: #333333;
+    opacity: 0.5;
+    stroke-width: .5px;
+}
+
+.overlay {
+    fill: none;
+    pointer-events: all;
+}
+
+.compCost {
+    fill: rgb(43, 106, 155);
+}
+
+.obsCost {
+    fill: rgb(245, 105, 91);
+}
+
+.confCost {
+    fill: rgb(0, 118, 108);
+}
+
+.totalCost {
+    fill: rgb(38, 38, 38);
 }
