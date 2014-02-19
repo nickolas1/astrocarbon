@@ -18,11 +18,8 @@
         boxModel: "border",
         grid: { gutters: 0 },
         breakpoints: {
-            'huge': { range: "1901-", containers: 'fluid' },
-            'wide': { range: "1401-1900", containers: 'fluid' },
-            'normal': { range: "1201-1400", containers: 'fluid' }, 
-            'narrow': { range: "901-1200", containers: 'fluid' }, 
-            'narrower': { range: "680-900", containers: 'fluid' }, 
+            
+            'normal': { range: "1-", containers: 'fluid' }, 
         }
     }
     </script> 
@@ -52,7 +49,7 @@
             <div class="1u collapsingspacer">&nbsp;</div>
             <div class="20u">
                 <h2>estimate your</h2>
-                <h1>astrononomical</h1>
+                <h1>astronomical</h1>
                 <h3>carbon footprint</h3>
             </div>
         </div>
@@ -249,17 +246,51 @@
             </div>
             <div class="9u">
                 <h1>your astronomical carbon footprint</h1>
-                <h2>compared to the world's per-capita energy usage by country</h2>
+                <h2>compared to average citizens of the world</h2>
             </div>
         </div>
         <div class="row">
-        <div class="1u collapsingspacer">&nbsp;</div>
-        <div class="10u" id="usagechart"></div>
+            <div class="2u collapsingspacer">&nbsp;</div>
+            <div class="1u tallyText">
+                <h3>metric tons of</h3>
+                <h3>CO2 per year:</h3>
+            </div>
+            <div class="2u tallyText">
+                <h3 id="tallyText0"></h3>
+                <h2 id="tallyVal0"></h2>
+            </div>
+            <div class="2u tallyText">
+                <h3 id="tallyText1"></h3>
+                <h2 id="tallyVal1"></h2>
+            </div>
+            <div class="2u tallyText">
+                <h3 id="tallyText2"></h3>
+                <h2 id="tallyVal2"></h2>
+            </div>
+            <div class="2u tallyText">
+                <h3 id="tallyText3"></h3>
+                <h2 id="tallyVal3"></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="2u collapsingspacer">&nbsp;</div>
+            <div class="9u tallyText">
+                <h3 style="padding-top:1em">hover over the chart to see how your astronomical CO2 footprint compares to average citizens of different countries</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="10u" id="usagechart"></div>
+        </div>
     </div>
     <div id="bottomspacer" class="row">&nbsp;</div>
 <script>
 
-
+var altcrement = -1;
+$(window).resize(function(){
+    var currentFontSize = parseFloat($('html').css('font-size'));
+    $('html').css('font-size', currentFontSize + (altcrement *= -1) + 'px');
+});
 
 /**************************/
 // background images
@@ -769,9 +800,12 @@ var parseFlights = function() {
     };
     confFlightParsed[tokill] = 0;
     obsFlightParsed[obsmax+1] = 0;  
+    console.log(confFlightParsed)
+    console.log(obsFlightParsed)
     for (i = 0; i <= obsmax; i++) {
-        var ind0 = Math.min(globalclicked, i),
-            ind1 = Math.max(globalclicked, i);
+        var ind0 = Math.min(Math.max(globalclicked,0), i),
+            ind1 = Math.max(Math.max(globalclicked,0), i);
+        console.log(ind0,ind1,i,confFlightParsed[i]);
         confFlightMatrix[ind0][ind1] = confFlightParsed[i];
         obsFlightMatrix[ind0][ind1] = obsFlightParsed[i];
     };
@@ -915,9 +949,9 @@ var styleKnobs = function() {
 
 /**************************/
 // plot the co2 usage. start out with just the world data, add user data later
-var margin = {top: 80, right: 0, bottom: 80, left: 60},
+var margin = {top: maph/6, right: 0, bottom: maph/6, left: maph/5},
     width = mapw - margin.left - margin.right,
-    height = 1.3*maph - margin.top - margin.bottom;
+    height = 1.2*maph - margin.top - margin.bottom;
 
 $("#tally").css("height", height);  
     
@@ -971,15 +1005,21 @@ $("#tally").onScreen({
         costComputers();
         var compCost = compPersonalCost + compHPCCost,
             totalCost = compCost + confFlightCost + obsFlightCost;
+            
+        $("#compTallyVal").html(compCost.toString());   
+        $("#obsTallyVal").html(obsFlightCost.toString());  
+        $("#confTallyVal").html(confFlightCost.toString());  
+        $("#totTallyVal").html(totalCost.toString());   
+        
        // compCost = 1.3;
         //confFlightCost = 2.5;
         //obsFlightCost = 4.1;
        // totalCost = compCost + confFlightCost + obsFlightCost;
         mydata = [ //bisect by negative of cost here- data array is increasing in rank, decreasing in co2
-            {rank: bisectTons(worldCO2Data, -compCost), co2: compCost, cl: "compCost"},
-            {rank: bisectTons(worldCO2Data, -obsFlightCost), co2: obsFlightCost, cl: "obsCost"},
-            {rank: bisectTons(worldCO2Data, -confFlightCost), co2: confFlightCost, cl: "confCost"},
-            {rank: bisectTons(worldCO2Data, -totalCost), co2: totalCost, cl: "totalCost"}
+            {rank: bisectTons(worldCO2Data, -compCost), co2: compCost, cl: "compCost", txt: "computing"},
+            {rank: bisectTons(worldCO2Data, -obsFlightCost), co2: obsFlightCost, cl: "obsCost", txt: "observing"},
+            {rank: bisectTons(worldCO2Data, -confFlightCost), co2: confFlightCost, cl: "confCost", txt: "conferences"},
+            {rank: bisectTons(worldCO2Data, -totalCost), co2: totalCost, cl: "totalCost", txt: "total"}
         ];
         var mydatasort = function (sortfunc, field){
             return function(a, b){
@@ -988,13 +1028,19 @@ $("#tally").onScreen({
         };
         mydata.sort(mydatasort(d3.ascending, "co2"));
         
+        for (var i = 0; i < 4; i++) {
+            $("#tallyText"+i.toString()).html(mydata[i].txt);
+            $("#tallyVal"+i.toString()).html(mydata[i].co2.toPrecision(2));
+            $("#tallyVal"+i.toString()).attr("class",mydata[i].cl);
+        }
+        
         maxrank = d3.max(worldCO2Data.map( function(d) { return d.rank }));
         minrank = Math.min(10, d3.min(mydata.map( function(d) { return d.rank })) - 2)
         maxco2 = Math.max(20, d3.max(mydata.map( function(d) { return d.co2 })) + 2)
         minco2 = d3.min(worldCO2Data.map( function(d) { return d.co2 }));
         
-        xscale.domain([maxrank+2, minrank]);
-        yscale.domain([0, maxco2+2]);
+        xscale.domain([maxrank, minrank]);
+        yscale.domain([0, maxco2]);
         
         co2plot.append("path")
             .datum(worldCO2Data)
@@ -1035,17 +1081,27 @@ $("#tally").onScreen({
         co2plot.selectAll(".myvals") 
             .data(mydata)
           .enter().append("rect")
-            .attr("class", "myvals")
+            //.attr("class", "myvals")
             //.attr("x", function(d) { return(xscale(d.rank)); })
-            .attr("x", function(d, i) { return(xscale(maxrank + 2+i)); })
-            .attr("y", function(d) { return(yscale(d.co2)); })
-            .attr("class", function(d) { return(d.cl); })
+            .attr("x", function(d, i) { return xscale(maxrank + 2+i); })
+            .attr("y", function(d) { return yscale(d.co2); })
+            .attr("class", "myvals")
+            .attr("id", function(d) { return d.cl; })
             .attr("width", 2)
             .attr("height",function(d) { return(height - yscale(d.co2)); })
-          .transition().delay( function(d, i) { return 1000 + i * 100; } )
+          .transition().delay( function(d, i) { return 700 + i * 100; } )
             .attr("x", function(d) { return(xscale(d.rank)); })
-            .duration(function(d, i) { return 300 + i * 150; });
-
+            .duration(function(d, i) { return 200 + i * 150; });
+          
+      /*  co2plot.selectAll(".myvalslabel") 
+            .data(mydata)  
+          .enter().append("text")
+            .attr("id", function(d) { return d.cl+"Text"; })
+            .attr("class", "myvalslabel")
+            .attr("x", function(d) { return xscale(d.rank); })
+            .attr("y", function(d, i) { return yscale(-2.5 + 0.5*Math.pow(-1,i)); })
+            .text( function(d) { return d.txt; } )*/
+            
         co2plot.append("rect")
           .attr("class", "overlay")
           .attr("width", width)
@@ -1087,16 +1143,17 @@ $("#tally").onScreen({
             .attr("dy", -2)
             .attr("class", "co2label")
             .text("5 tons");
+        var negy = -maxco2/20;
         co2plot.append("text")
             .attr("x", xscale(10))
-            .attr("y", yscale(-1))
+            .attr("y", yscale(negy))
             .attr("dy", -2)
             .attr("text-anchor", "end")
             .attr("class", "co2label")
             .text("world rank = 10");
         co2plot.append("text")
             .attr("x", xscale(200))
-            .attr("y", yscale(-1))
+            .attr("y", yscale(negy))
             .attr("dy", -2)
             .attr("text-anchor", "end")
             .attr("class", "co2label")
@@ -1104,7 +1161,7 @@ $("#tally").onScreen({
         
         function mousearound() {
             var x0 = xscale.invert(d3.mouse(this)[0]),
-                i = bisectRank(worldCO2Data, x0, minrank, maxrank),
+                i = bisectRank(worldCO2Data, x0, d3.min(worldCO2Data.map( function(d) { return d.rank })), d3.max(worldCO2Data.map( function(d) { return d.rank }))),
                 d0 = worldCO2Data[i - 1],
                 d1 = worldCO2Data[i],
                 d = x0 - d0.rank > d1.rank - x0 ? d1 : d0;

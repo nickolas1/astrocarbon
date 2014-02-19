@@ -7,6 +7,7 @@
 body {
     font-family: "Open Sans", sans-serif;
     font-size: 12pt;
+    font-size: 1.5vw;
     font-weight: 400;
     background: rgb(93, 88, 86);
     color: #302407;
@@ -116,8 +117,8 @@ a{
 }
 
 .sectionnumber {
-    height: 75px; /* container width / 12 */
-    line-height: 75px;
+    height: 8.33vw; /* container width / 12 */
+    line-height: 8.33vw;
     /*border-style: solid;
     border-width: 3px;*/
     /*background-color: rgba(255, 255, 255, 0.3);*/
@@ -235,6 +236,12 @@ a{
     opacity: 0.7;
 }
 
+.myvalslabel {
+    font-weight: 300;
+    font-size: 0.8em;
+    text-anchor: end
+}
+
 .co2line {
     fill: none;
     stroke: #666666;
@@ -253,18 +260,42 @@ a{
     pointer-events: all;
 }
 
-.compCost {
+.tallyText h3 {
+    text-align: center;
+    font-size: 0.8em;
+    padding: 0;
+}
+.tallyText h2 {
+    text-align: center;
+    font-size: 1.2em;
+    padding-left: 0;
+    padding-top: 0.2em;
+}
+
+#compCost, #compCostText {
     fill: rgb(43, 106, 155);
 }
+.compCost {
+    color: rgb(43, 106, 155);
+}
 
-.obsCost {
+#obsCost, #obsCostText, .obsCost {
     fill: rgb(245, 105, 91);
 }
-
-.confCost {
-    fill: rgb(0, 118, 108);
+.obsCost {
+    color: rgb(245, 105, 91);
 }
 
-.totalCost {
+#confCost, #confCostText, .confCost {
+    fill: rgb(0, 118, 108);
+}
+.confCost {
+    color: rgb(0, 118, 108);
+}
+
+#totalCost, totalCostText, .totalCost {
     fill: rgb(38, 38, 38);
+}
+.totalCost {
+    color: rgb(38, 38, 38);
 }
