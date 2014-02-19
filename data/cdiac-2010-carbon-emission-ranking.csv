@@ -1,102 +1,103 @@
- 1,Qatar,10.94 
- 2,Trinidad And Tobago,10.30 
- 3,Kuwait,9.34 
- 4,Netherland Antilles,6.42 
- 5,Brunei (Darussalam),6.26 
- 6,United Arab Emirates,6.08 
- 7,Aruba,5.89 
- 8,Luxembourg,5.82 
- 9,Oman,5.61 
- 10,Bahrain,5.23 
- 11,Falkland Islands (Malvinas),5.22 
- 12,United States Of America,4.71 
- 13,Saudi Arabia,4.61 
- 14,Australia,4.57 
- 15,Gibraltar,4.27 
- 16,New Caledonia,4.26 
- 17,Kazakhstan,4.23 
- 18,Canada,4.00 
- 19,Faeroe Islands,3.99 
- 20,Estonia,3.73 
- 21,Montserrat,3.53 
- 22,Russian Federation,3.32 
- 23,Republic Of Korea,3.21 
- 24,Norway,3.19 
- 25,St. Pierre & Miquelon,3.19 
- 26,Finland,3.14 
- 27,Taiwan,3.06 
- 28,Greenland,3.02 
- 29,Netherlands,2.99 
- 30,Czech Republic,2.90 
- 31,Turkmenistan,2.87 
- 32,Palau,2.86 
- 33,Cayman Islands,2.86 
- 34,Belgium,2.77 
- 35,Israel,2.60 
- 36,Libyan Arab Jamahiriyah,2.53 
- 37,Japan,2.52 
- 38,South Africa,2.50 
- 39,Germany,2.47 
- 40,Ireland,2.44 
- 41,Nauru,2.29 
- 42,Denmark,2.28 
- 43,Poland,2.26 
- 44,Bosnia & Herzegovina,2.26 
- 45,Seychelles,2.22 
- 46,Austria,2.17 
- 47,United Kingdom,2.16 
- 48,Islamic Republic Of Iran,2.11 
- 49,Greece,2.08 
- 50,Malaysia,2.08 
- 51,Slovenia,2.06 
- 52,Bermuda,2.00 
- 53,New Zealand,1.97 
- 54,Bahamas,1.96 
- 55,Cyprus,1.90 
- 56,Venezuela,1.90 
- 57,Italy (Including San Marino),1.83 
- 58,Ukraine,1.83 
- 59,Equatorial Guinea,1.82 
- 60,Slovakia,1.80 
- 61,Belarus,1.77 
- 62,Malta,1.69 
- 63,China (Mainland),1.68 
- 64,Iceland,1.67 
- 65,Andorra,1.67 
- 66,Bulgaria,1.63 
- 67,Spain,1.60 
- 68,Antigua & Barbuda,1.58 
- 69,France (Including Monaco),1.57 
- 70,Martinique,1.53 
- 71,Sweden,1.53 
- 72,Barbados,1.50 
- 73,Macedonia,1.44 
- 74,Reunion,1.41 
- 75,Hong Kong Special Adminstrative Region Of China,1.40 
- 76,Hungary,1.38 
- 77,British Virgin Islands,1.37 
- 78,Switzerland,1.37 
- 79,Azerbaijan,1.36 
- 80,Portugal,1.34 
- 81,Lebanon,1.32 
- 82,St. Kitts-Nevis,1.29 
- 83,Croatia,1.29 
- 84,Serbia,1.27 
- 85,Suriname,1.24 
- 86,Argentina,1.22 
- 87,Thailand,1.16 
- 88,Turks And Caicos Islands,1.16 
- 89,Chile,1.15 
- 90,Anguilla,1.14 
- 91,Niue,1.14 
- 92,Mongolia,1.14 
- 93,Turkey,1.12 
- 94,Montenegro,1.12 
- 95,Lithuania,1.11 
- 96,Mexico,1.07 
- 97,Uzbekistan,1.04 
- 98,Guadeloupe,1.03 
- 99,Romania,1.00 
+rank,name,carbon
+1,Qatar,10.94 
+2,Trinidad And Tobago,10.30 
+3,Kuwait,9.34 
+4,Netherland Antilles,6.42 
+5,Brunei,6.26 
+6,United Arab Emirates,6.08 
+7,Aruba,5.89 
+8,Luxembourg,5.82 
+9,Oman,5.61 
+10,Bahrain,5.23 
+11,Falkland Islands,5.22 
+12,United States,4.71 
+13,Saudi Arabia,4.61 
+14,Australia,4.57 
+15,Gibraltar,4.27 
+16,New Caledonia,4.26 
+17,Kazakhstan,4.23 
+18,Canada,4.00 
+19,Faeroe Islands,3.99 
+20,Estonia,3.73 
+21,Montserrat,3.53 
+22,Russian Federation,3.32 
+23,South Korea,3.21 
+24,Norway,3.19 
+25,St. Pierre & Miquelon,3.19 
+26,Finland,3.14 
+27,Taiwan,3.06 
+28,Greenland,3.02 
+29,Netherlands,2.99 
+30,Czech Republic,2.90 
+31,Turkmenistan,2.87 
+32,Palau,2.86 
+33,Cayman Islands,2.86 
+34,Belgium,2.77 
+35,Israel,2.60 
+36,Libya,2.53 
+37,Japan,2.52 
+38,South Africa,2.50 
+39,Germany,2.47 
+40,Ireland,2.44 
+41,Nauru,2.29 
+42,Denmark,2.28 
+43,Poland,2.26 
+44,Bosnia & Herzegovina,2.26 
+45,Seychelles,2.22 
+46,Austria,2.17 
+47,United Kingdom,2.16 
+48,Iran,2.11 
+49,Greece,2.08 
+50,Malaysia,2.08 
+51,Slovenia,2.06 
+52,Bermuda,2.00 
+53,New Zealand,1.97 
+54,Bahamas,1.96 
+55,Cyprus,1.90 
+56,Venezuela,1.90 
+57,Italy,1.83 
+58,Ukraine,1.83 
+59,Equatorial Guinea,1.82 
+60,Slovakia,1.80 
+61,Belarus,1.77 
+62,Malta,1.69 
+63,China,1.68 
+64,Iceland,1.67 
+65,Andorra,1.67 
+66,Bulgaria,1.63 
+67,Spain,1.60 
+68,Antigua & Barbuda,1.58 
+69,France,1.57 
+70,Martinique,1.53 
+71,Sweden,1.53 
+72,Barbados,1.50 
+73,Macedonia,1.44 
+74,Reunion,1.41 
+75,Hong Kong,1.40 
+76,Hungary,1.38 
+77,British Virgin Islands,1.37 
+78,Switzerland,1.37 
+79,Azerbaijan,1.36 
+80,Portugal,1.34 
+81,Lebanon,1.32 
+82,St. Kitts-Nevis,1.29 
+83,Croatia,1.29 
+84,Serbia,1.27 
+85,Suriname,1.24 
+86,Argentina,1.22 
+87,Thailand,1.16 
+88,Turks And Caicos,1.16 
+89,Chile,1.15 
+90,Anguilla,1.14 
+91,Niue,1.14 
+92,Mongolia,1.14 
+93,Turkey,1.12 
+94,Montenegro,1.12 
+95,Lithuania,1.11 
+96,Mexico,1.07 
+97,Uzbekistan,1.04 
+98,Guadeloupe,1.03 
+99,Romania,1.00 
 100,Iraq,0.99 
 101,Algeria,0.95 
 102,Cook Islands,0.95 
@@ -107,8 +108,8 @@
 107,French Polynesia,0.89 
 108,Mauritius,0.86 
 109,French Guiana,0.83 
-110,Syrian Arab Republic,0.83 
-111,Democratic People S Republic Of Korea,0.80 
+110,Syria,0.83 
+111,North Korea,0.80 
 112,Panama,0.75 
 113,Singapore,0.72 
 114,Jamaica,0.71 
@@ -121,14 +122,14 @@
 121,Guyana,0.61 
 122,Saint Helena,0.61 
 123,Brazil,0.59 
-124,Dominican Republic,0.58 
+124,Dominican Rep.,0.58 
 125,Wallis And Futuna Islands,0.56 
 126,Dominica,0.54 
 127,Peru,0.54 
 128,Uruguay,0.54 
 129,Marshall Islands,0.53 
 130,St. Vincent & The Grenadines,0.52 
-131,Macau Special Adminstrative Region Of China,0.52 
+131,Macau,0.52 
 132,Indonesia,0.49 
 133,Gabon,0.47 
 134,Viet Nam,0.47 
@@ -137,20 +138,20 @@
 137,Colombia,0.45 
 138,Angola,0.43 
 139,Morocco,0.43 
-140,Plurinational State Of Bolivia,0.42 
+140,Bolivia,0.42 
 141,Tonga,0.41 
 142,Fiji,0.41 
 143,Georgia,0.39 
 144,Namibia,0.38 
 145,Armenia,0.37 
-146,Republic Of Moldova,0.37 
+146,Moldova,0.37 
 147,Belize,0.37 
 148,Albania,0.36 
 149,Kyrgyzstan,0.33 
 150,Honduras,0.29 
 151,El Salvador,0.28 
 152,Pakistan,0.25 
-153,Federated States Of Micronesia,0.25 
+153,Micronesia,0.25 
 154,Yemen,0.25 
 155,Samoa,0.24 
 156,Philippines,0.24 
@@ -177,11 +178,11 @@
 177,Tajikistan,0.11 
 178,Bangladesh,0.10 
 179,Solomon Islands,0.10 
-180,Republic Of Cameroon,0.10 
+180,Cameroon,0.10 
 181,Ghana,0.10 
 182,Sudan,0.09 
 183,Kenya,0.08 
-184,Lao People S Democratic Republic,0.08 
+184,Laos,0.08 
 185,Cambodia,0.08 
 186,Cote D Ivoire,0.08 
 187,Gambia,0.07 
@@ -190,11 +191,11 @@
 190,Haiti,0.06 
 191,Liberia,0.05 
 192,Comoros,0.05 
-193,Myanmar (Formerly Burma),0.05 
+193,Myanmar,0.05 
 194,Zambia,0.05 
-195,Timor-Leste (Formerly East Timor),0.04 
+195,Timor-Leste,0.04 
 196,Guinea Bissau,0.04 
-197,United Republic Of Tanzania,0.04 
+197,Tanzania,0.04 
 198,Nepal,0.03 
 199,Guinea,0.03 
 200,Mozambique,0.03 
@@ -207,9 +208,9 @@
 207,Malawi,0.02 
 208,Ethiopia,0.02 
 209,Somalia,0.02 
-210,Central African Republic,0.02 
+210,Central African Rep.,0.02 
 211,Rwanda,0.02 
-212,Democratic Republic Of The Congo (Formerly Zaire),0.01 
+212,Democratic Rep. Of The Congo,0.01 
 213,Chad,0.01 
 214,Mali,0.01 
 215,Burundi,0.01 

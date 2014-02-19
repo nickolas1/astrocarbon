@@ -28,6 +28,7 @@
     <div id="letterboxbottom" class="letterbox"></div>
     <div id="topspacer" class="row">&nbsp;</div>
     <div id="backgrounds">
+        <div id="background0" class="backgroundimage"></div>
         <div id="background1" class="backgroundimage"></div>
         <div id="backgroundgauze" class="backgroundimage"></div>
         <div id="background2" class="backgroundimage">
@@ -40,6 +41,26 @@
             <div class="imagecredit" style="color: rgb(230, 230, 230);">image : <a href="http://creativity103.com">creativity103.com</a></div>
         </div>
     </div>
+    <div class="container frame" id="splash">
+        <div class="row" style="height:20vh">&nbsp</div>
+        <div class="row sectiontitle">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="20u">
+                <h2>estimate your</h2>
+                <h1>astrononomical</h1>
+                <h3>carbon footprint</h3>
+            </div>
+        </div>
+        <div class="row" style="height:20vh">&nbsp</div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="-4u 2u continuebutton">
+                <p style="padding-top:0.35em;">scroll to continue</p>
+                <p><i class="fa fa-angle-double-down fa-3x"></i></p>
+            </div>
+        </div> 
+    </div>
+    
     <div class="container frame" id="intro">
         <div class="row sectiontitle">
             <div class="1u collapsingspacer">&nbsp;</div>
@@ -66,8 +87,7 @@
             </div>
         </div> 
     </div>
-    
-    
+        
     <div class="container frame" id="conferences">
         <div class="row sectiontitle">
             <div class="1u collapsingspacer">&nbsp;</div>
@@ -255,17 +275,21 @@ var backgroundScrollController = function( event ) {
         transition = 0.1;
    // console.log(fromTop);
         frac = fromTop/stepheight;
-        $("#background1").css("opacity", Math.max(1 - 3*(frac - 0.55), 0) );
+        $("#background0").css("opacity", Math.max(1 - 4*(frac - 0.4), 0) );
     if(fromTop >= stepheight) {
         frac = (fromTop - stepheight+0.001)/stepheight;
-        $("#background2").css("opacity", Math.max(1 - 4*(frac - 0.4), 0) );
+        $("#background1").css("opacity", Math.max(1 - 3*(frac - 0.55), 0) );
     }
     if(fromTop >= 2*stepheight) {
         frac = (fromTop - 2*stepheight+0.001)/stepheight;
-        $("#background3").css("opacity", Math.max(1 - 4*(frac - 0.4), 0) );
+        $("#background2").css("opacity", Math.max(1 - 4*(frac - 0.4), 0) );
     }
     if(fromTop >= 3*stepheight) {
         frac = (fromTop - 3*stepheight+0.001)/stepheight;
+        $("#background3").css("opacity", Math.max(1 - 4*(frac - 0.4), 0) );
+    }
+    if(fromTop >= 4*stepheight) {
+        frac = (fromTop - 4*stepheight+0.001)/stepheight;
         $("#background4").css("opacity", Math.max(1 - 4*(frac - 0.4), 0) );
     }
 };

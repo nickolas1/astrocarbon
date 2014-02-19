@@ -43,6 +43,28 @@ h4 {
     text-align: center;
 }
 
+#splash {
+    text-align: center;
+    color: rgb(240, 241, 245);
+}
+    #splash h1 {
+        text-align: center;
+        font-weight: 300;
+        font-size: 7em;
+        padding: 0;
+    }
+    #splash h2 {
+        font-size: 300;
+        font-size: 2em;
+        padding-left: 3em;
+    }
+    #splash h3 {
+        font-size: 300;
+        font-size: 3em;
+        padding-right: 4em;
+        text-align: right;
+    }
+
 #intro {
     text-align: center;
     z-index: 10;
@@ -169,33 +191,39 @@ a{
     background-attachment: fixed;
 }
 
-#background1 {
+#background0 {
     height: 100%;
     z-index: -1;
+    background: rgb(25, 27, 31);
+}
+
+#background1 {
+    height: 100%;
+    z-index: -2;
     background: rgb(35, 36, 42);
 }
 
 #backgroundgauze {
     height: 100%;
-    z-index: -2;
+    z-index: -3;
     background: #fdf7ef;
     opacity: 0.7;
 }
 
 #background2 {
-    z-index: -3;
+    z-index: -4;
     background: url(../images/Solvay_conference_1927.jpg);
     background-size: 100%;
 }
 
 #background3 {
-    z-index: -4;
+    z-index: -5;
     background: url(../images/CTIO-Sunset-2000.jpg);
     background-size: 100%;
 }
 
 #background4 {
-    z-index: -5;
+    z-index: -6;
     background: url(../images/circuit_board.jpg);
     background-size: 100%;
 }
