@@ -50,19 +50,19 @@ h4 {
     #splash h1 {
         text-align: center;
         font-weight: 300;
-        font-size: 7em;
+        font-size: 8em;
         padding: 0;
     }
     #splash h2 {
+        text-align: center;
         font-size: 300;
         font-size: 2em;
-        padding-left: 3em;
+        padding-right: 12em;
     }
     #splash h3 {
         font-size: 300;
         font-size: 3em;
-        padding-right: 4em;
-        text-align: right;
+        padding-left: 10em;
     }
 
 #intro {
