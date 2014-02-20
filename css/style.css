@@ -336,7 +336,8 @@ a{
 .faqA {
     font-size: 0.9em;
     font-weight: 300;
-    padding-bottom: 0.5em;
+    padding-top: 0.25em;
+    padding-bottom: 0.75em;
     padding-left: 1em;
-    line-height: 1.25em;
+    line-height: 1.4em;
 }
