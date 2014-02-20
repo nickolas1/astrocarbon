@@ -157,6 +157,7 @@
                     'change blur'
                     , function () {
                         s.val(s._validate(s.$.val()));
+                        s.cH(s.$.val());
                     }
                 );
 
@@ -509,7 +510,14 @@
                         (this.rH(v) === false)
                 ) return;
 
-                this.cv = this.o.stopper ? max(min(v, this.o.max), this.o.min) : v;
+             //   this.cv = this.o.stopper ? max(min(v, this.o.max), this.o.min) : v;
+                var newValue = this.o.stopper ? max(min(v, this.o.max), this.o.min) : v;
+                if (newValue == this.cv) return;
+                this.cv = newValue;
+                if (
+                    this.cH
+                    && (this.cH(this.cv) === false)
+                ) return;
                 this.v = this.cv;
                 this.$.val(this.v);
                 this._draw();
@@ -606,6 +614,7 @@
                                 s.o.stopper && (v = max(min(v, s.o.max), s.o.min));
 
                                 s.change(v);
+                                s.cH(v);
                                 s._draw();
 
                                 // long time keydown speed-up
@@ -698,7 +707,12 @@
         };
 
         this.change = function (v) {
+            if (v == this.cv) return;
             this.cv = v;
+            if ( 
+                this.cH
+                && (this.cH(v) === false)
+            ) return;
             this.$.val(v);
         };
 
