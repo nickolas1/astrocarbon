@@ -292,7 +292,7 @@
             </div></div>
         </div>
     </div>
-    
+
     <div class="container frame" id="faq">
         <div class="row sectiontitle">
             <div class="1u collapsingspacer">&nbsp;</div>
@@ -300,7 +300,40 @@
                 faq
             </div>
         </div>
-        hello
+        <div class="row" style="height:4vw">&nbsp</div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="10u">
+                <span class="faqQ">where do these numbers come from?</span>
+                <div class="faqA">Each region was assigned a representative airport. These were chosen either to be near a clear concentration of astronomers or near the 
+                geographical center of the region. These are: Africa: JNB; Antarctica: 'Antarctica'; Asia: PEK; Europe: AMS; Hawaii: HNL; Northern Americas: ORD; Oceania: SYD; South America: SCL.
+                The CO2 cost of travel between each airport was calculated at <a href="http://www.travelnav.com/">travelnav.com</a>, which seems broadly similar to other estimators and would allow
+                me to type in Antarctica as a destination. Travel within regions was assigned a CO2 cost of 0.5 tons; this may overestimate some trips and underestimate others. Exceptions are Hawaii and Antarctica, 
+                where inter-island and snowy flights count for 0.1 tons.</div>
+                <div class="faqA">Personal computing costs were calculated assuming 60W during normal use, which is in the right ballpark for laptops. This is a pretty minor contributor. HPC costs
+                were calculated assuming 10 GFLOPS per core, and 750 MFLOPS/W as representative of a middle-of-the pack member of the <a href="http://www.green500.org">Green 500</a>. The Green 500 list
+                spans an order of magnitude in efficiency, so this is a particularly error-prone number. Yearly Watt-hours were turned into CO2 costs with the conversion 0.5 kg CO2 / kWh; this is probably
+                good to a factor of a couple unless you live in a country with a particularly high fraction of nuclear or hydro power.</div>
+                <div class="faqA">The data for the world's per-capita CO2 usage comes from <a href="http://cdiac.ornl.gov/">CDIAC</a>, and are from 2010. These numbers include fossil-fuel burning,
+                cement production, and gas flaring.</div>
+                <span class="faqQ">isn't this way too simplistic?</span>
+                <div class="faqA">Probably. $\sim$ is implied throughout, and I'd bet that these assumptions would pass astronomical peer review.</div>
+                <div class="faqA">The precise number isn't so important. The point is that if you are a typical astronomer, your career costs the climate about as much as an additional person.</div>
+                <span class="faqQ">why did you do this?</span>
+                <div class="faqA">I think climate change is the greatest moral issue of our age (not to put too fine a point on it). I think we should spare some thought to how our activities impact the world while we study space.</div>
+                <span class="faqQ">this feels like you're picking on astronomers. why pick on astronomers?</span>
+                <div class="faqA">I am currently an astronomer.</div>
+                <span class="faqQ">why did you divide the world up so terribly?</span>
+                <div class="faqA">the world is large, and I wanted to keep the options manageable. I chose to follow <a href="http://www.fifa.com/aboutfifa/organisation/confederations/index.html">FIFA's confederations</a>, with a few exceptions (the CONCACAF members in South America; Greenland; Hawaii). I sincerely don't want to cause any distress 
+    by the way I regionalized the world, so please let me know if I made a bad choice.</div>
+                <span class="faqQ">you screwed this up terribly. how can I tell you, or take this and make it better?</span>
+                <div class="faqA">
+                <a href="https://twitter.com/nickolas1" class="plain"><i class="fa fa-twitter fa-2x" style="padding-right:1em;"></i></a>
+                <a href="mailto:nickolas1@gmail.com" class="plain"><i class="fa fa-envelope fa-2x" style="padding-right:1em;"></i></a>
+                <a href="https://github.com/nickolas1/astrocarbon" class="plain"><i class="fa fa-github fa-2x" style="padding-right:1em;"></i></a>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="bottomspacer" class="row">&nbsp;</div>
 <script>
@@ -929,11 +962,12 @@ var costComputers = function() {
     // compHPC is yearly core hours 
     var compPeronsalWh,
         compHPCWh;
-    compPersonalWh = compPersonal * 60; // assuming 60 Watts during use. doesn't really matter, this is negligible compared to flights
-    compHPCWh = compHPC * 10.e9 / 500.e6; // assuming 10 GFLOPS per core, 500 MFLOPS per Watt
-    // assume 0.5 kg CO2 per kWh
-    compPersonalCost = compPersonalWh / 1000.0 * 0.5 / 1000.0;
-    compHPCCost = compHPCWh / 1000.0 * 0.5 / 1000.0;
+    // get kW for computers
+    compPersonalWh = compPersonal * 60 / 1000.0; // assuming 60 Watts during use. doesn't really matter, this is negligible compared to flights
+    compHPCWh = compHPC * 10.e9 / 750.e6 / 1000.0; // assuming 10 GFLOPS per core, 750 MFLOPS per Watt
+    // assume 0.5 kg CO2 per kWh, convert to tons
+    compPersonalCost = compPersonalWh * 0.5 / 1000.0;
+    compHPCCost = compHPCWh * 0.5 / 1000.0;
     console.log(compHPCCost, compPersonalCost);
 };
 

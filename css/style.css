@@ -13,6 +13,28 @@ body {
     color: #302407;
 } 
 
+ a {
+		text-decoration: none;
+		color: inherit;
+		border-bottom: dotted 1px rgba(128,128,128,0.5);
+		-moz-transition: color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+		-webkit-transition: color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+		-o-transition: color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+		-ms-transition: color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+		transition: color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+		outline: 0;
+}
+    a:hover
+		{
+			color: #E27689;
+			border-bottom-color: rgba(255,255,255,0);
+		}
+
+a.plain {
+    text-decoration: none;
+    border-bottom: none;
+}
+
 sup 
 {
     position: relative;
@@ -299,4 +321,19 @@ a{
 }
 .totalCost {
     color: rgb(38, 38, 38);
+}
+
+.faqQ {
+    font-size: 1em;
+    font-weight: 400;
+    opacity: 0.6;
+    color: rgb(30, 30, 30);
+}
+
+.faqA {
+    font-size: 0.9em;
+    font-weight: 300;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    line-height: 1.2em;
 }
