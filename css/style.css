@@ -267,7 +267,8 @@ a{
 }
 .tallyText h2 {
     text-align: center;
-    font-size: 1.2em;
+    font-size: 1.3em;
+    font-weight: 400;
     padding-left: 0;
     padding-top: 0.2em;
 }

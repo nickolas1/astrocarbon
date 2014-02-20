@@ -3,6 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300,600' rel='stylesheet' type='text/css'>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -18,8 +19,7 @@
         boxModel: "border",
         grid: { gutters: 0 },
         breakpoints: {
-            
-            'normal': { range: "1-", containers: 'fluid' }, 
+            'normal': { range: "1-", containers: 'fluid', useOrientation: true }, 
         }
     }
     </script> 
@@ -51,6 +51,8 @@
                 <h2>estimate your</h2>
                 <h1>astronomical</h1>
                 <h3>carbon footprint</h3>
+                <p id="test1"></p>
+                <p id="test2"></p>
             </div>
         </div>
         <div class="row" style="height:10vw">&nbsp</div>
@@ -275,22 +277,56 @@
         <div class="row">
             <div class="2u collapsingspacer">&nbsp;</div>
             <div class="9u tallyText">
-                <h3 style="padding-top:1em">hover over the chart to see how your astronomical CO2 footprint compares to average citizens of different countries</h3>
+                <h3 style="padding-top:1em; text-align:left;">hover over the chart to see how your yearly astronomical CO2 footprint compares to the per-capita energy use of different countries</h3>
             </div>
         </div>
         <div class="row">
             <div class="1u collapsingspacer">&nbsp;</div>
             <div class="10u" id="usagechart"></div>
         </div>
+        <div class="row">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="-4u 2u"><div class="continuebutton">
+                <p style="padding-top:0.35em;">faq</p>
+                <p><i class="fa fa-angle-double-down fa-3x"></i></p>
+            </div></div>
+        </div>
+    </div>
+    
+    <div class="container frame" id="faq">
+        <div class="row sectiontitle">
+            <div class="1u collapsingspacer">&nbsp;</div>
+            <div class="2u sectionnumber">
+                faq
+            </div>
+        </div>
+        hello
     </div>
     <div id="bottomspacer" class="row">&nbsp;</div>
 <script>
 
+// hide scroll bar on android
+$(function() {
+    if (navigator.userAgent.match(/Android/i)) {
+        window.scrollTo(0,0); // reset in case prev not scrolled  
+        var nPageH = $(document).height();
+        var nViewH = window.outerHeight;
+        if (nViewH > nPageH) {
+        nViewH = nViewH / window.devicePixelRatio;
+            $('BODY').css('height',nViewH + 'px');
+        }
+        window.scrollTo(1,0); // switched this from (0,1) to (1,0) to make it work for landscape
+    }
+});
+// need this until chrome bug fixed
 var altcrement = -1;
 $(window).resize(function(){
     var currentFontSize = parseFloat($('html').css('font-size'));
     $('html').css('font-size', currentFontSize + (altcrement *= -1) + 'px');
 });
+
+// do we need to recalculate the costs
+var globalretally;
 
 /**************************/
 // background images
@@ -304,9 +340,9 @@ var lbexcess, //letterbox excess
 var letterboxcalc = function() {
     lbexcess = Math.max(0, ($(window).height() - 0.5625 * $(window).width()) / 2); // that number is 9/16
     stepheight = 1.15*Math.max($(window).width()*0.5625, $(window).height() - 2*lbexcess); // that number is 16/9
-    mapw = Math.floor($(window).width() * 10/12);
+    mapw = Math.floor($(window).width() * 10/12 * 0.9);
     maph = Math.floor(mapw * 0.42);
-    mapscale = 115 * ($(window).width() / 900)
+    mapscale = 105 * ($(window).width() / 900)
     uw = $(window).width() / 12;
 };
 letterboxcalc();
@@ -475,7 +511,7 @@ var populateConferences = function() {
                     "scroll": false,
                     "change": function (v) {
                                 confFlight[index] = v;
-                                console.log(confFlight);
+                                globalretally = true;
                               }    
                 });
                 $(knobid)
@@ -500,7 +536,7 @@ var populateConferences = function() {
             "scroll": false,
             "change": function (v) {
                             confFlight[confi] = v;
-                            console.log(confFlight);
+                            globalretally = true;
                         }   
         });
         $(knobid)
@@ -549,6 +585,7 @@ var populateObservations = function() {
                     "scroll": false,
                     "change": function (v) {
                                 obsFlight[index] = v;
+                                globalretally = true;
                               }    
                 });
                 $(knobid)
@@ -572,6 +609,7 @@ var populateObservations = function() {
         "scroll": false,
         "change": function (v) {
                         obsFlight[obsi] = v;
+                        globalretally = true;
                     }   
     });
     $(knobid)
@@ -598,6 +636,7 @@ $("#compknob0").knob({
         "scroll": false,
         "change": function (v) {
                         compPersonal = v * 365; // convert daily to yearly total
+                        globalretally = true;
                     }   
     });
     
@@ -621,6 +660,7 @@ $("#compknob1").knob({
                             compHPCstring = String(compHPC).charAt(0)+"x10<sup>"+String(compHPC).charAt(3)+"</sup>"
                         }
                         $("#fauxHPCval").html(compHPCstring);
+                        globalretally = true;
                     }   
     });
 
@@ -724,6 +764,7 @@ for (i = 0; i < regionNames.length; i++) {
                 $("#introDone").attr("class", "continuebutton");
                 pulse($("#introDone"), pulseduration, "swing", {opacity: 0.8}, {opacity: 0.3});  
                 clicked[index] = true;
+                globalretally = true;
         
                 if(globalclicked >= 0) { // unset whatever was chosen before
                     clicked[globalclicked] = !clicked[globalclicked];
@@ -949,9 +990,9 @@ var styleKnobs = function() {
 
 /**************************/
 // plot the co2 usage. start out with just the world data, add user data later
-var margin = {top: maph/6, right: 0, bottom: maph/6, left: maph/5},
+var margin = {top: maph/6, right: 0, bottom: maph/15, left: maph/5},
     width = mapw - margin.left - margin.right,
-    height = 1.2*maph - margin.top - margin.bottom;
+    height = 1.1*maph - margin.top - margin.bottom;
 
 $("#tally").css("height", height);  
     
@@ -998,183 +1039,196 @@ d3.csv("data/cdiac-2010-carbon-emission-ranking.csv", function(d) {
 var mydata
 $("#tally").onScreen({
     doIn: function() {
-        console.log("here we are");
-        // get the cost of the computers and flights
-        parseFlights();
-        costFlights();
-        costComputers();
-        var compCost = compPersonalCost + compHPCCost,
-            totalCost = compCost + confFlightCost + obsFlightCost;
+        if(globalretally){
+            // get the cost of the computers and flights
+            parseFlights();
+            costFlights();
+            costComputers();
+            globalretally = false;
+            $("#co2chartsvg").empty();
             
-        $("#compTallyVal").html(compCost.toString());   
-        $("#obsTallyVal").html(obsFlightCost.toString());  
-        $("#confTallyVal").html(confFlightCost.toString());  
-        $("#totTallyVal").html(totalCost.toString());   
+            var compCost = compPersonalCost + compHPCCost,
+                totalCost = compCost + confFlightCost + obsFlightCost;
+            
+            $("#compTallyVal").html(compCost.toString());   
+            $("#obsTallyVal").html(obsFlightCost.toString());  
+            $("#confTallyVal").html(confFlightCost.toString());  
+            $("#totTallyVal").html(totalCost.toString());   
         
-       // compCost = 1.3;
-        //confFlightCost = 2.5;
-        //obsFlightCost = 4.1;
-       // totalCost = compCost + confFlightCost + obsFlightCost;
-        mydata = [ //bisect by negative of cost here- data array is increasing in rank, decreasing in co2
-            {rank: bisectTons(worldCO2Data, -compCost), co2: compCost, cl: "compCost", txt: "computing"},
-            {rank: bisectTons(worldCO2Data, -obsFlightCost), co2: obsFlightCost, cl: "obsCost", txt: "observing"},
-            {rank: bisectTons(worldCO2Data, -confFlightCost), co2: confFlightCost, cl: "confCost", txt: "conferences"},
-            {rank: bisectTons(worldCO2Data, -totalCost), co2: totalCost, cl: "totalCost", txt: "total"}
-        ];
-        var mydatasort = function (sortfunc, field){
-            return function(a, b){
-                return sortfunc(a[field], b[field]);
+           // compCost = 1.3;
+            //confFlightCost = 2.5;
+            //obsFlightCost = 4.1;
+           // totalCost = compCost + confFlightCost + obsFlightCost;
+            mydata = [ //bisect by negative of cost here- data array is increasing in rank, decreasing in co2
+                {rank: bisectTons(worldCO2Data, -compCost), co2: compCost, cl: "compCost", txt: "computing"},
+                {rank: bisectTons(worldCO2Data, -obsFlightCost), co2: obsFlightCost, cl: "obsCost", txt: "observing"},
+                {rank: bisectTons(worldCO2Data, -confFlightCost), co2: confFlightCost, cl: "confCost", txt: "conferences"},
+                {rank: bisectTons(worldCO2Data, -totalCost), co2: totalCost, cl: "totalCost", txt: "total"}
+            ];
+            var mydatasort = function (sortfunc, field){
+                return function(a, b){
+                    return sortfunc(a[field], b[field]);
+                };
             };
-        };
-        mydata.sort(mydatasort(d3.ascending, "co2"));
+            mydata.sort(mydatasort(d3.ascending, "co2"));
         
-        for (var i = 0; i < 4; i++) {
-            $("#tallyText"+i.toString()).html(mydata[i].txt);
-            $("#tallyVal"+i.toString()).html(mydata[i].co2.toPrecision(2));
-            $("#tallyVal"+i.toString()).attr("class",mydata[i].cl);
-        }
+            for (var i = 0; i < 4; i++) {
+                $("#tallyText"+i.toString()).html(mydata[i].txt);
+                $("#tallyVal"+i.toString()).html(mydata[i].co2.toPrecision(2));
+                $("#tallyVal"+i.toString()).attr("class",mydata[i].cl);
+            }
         
-        maxrank = d3.max(worldCO2Data.map( function(d) { return d.rank }));
-        minrank = Math.min(10, d3.min(mydata.map( function(d) { return d.rank })) - 2)
-        maxco2 = Math.max(20, d3.max(mydata.map( function(d) { return d.co2 })) + 2)
-        minco2 = d3.min(worldCO2Data.map( function(d) { return d.co2 }));
+            maxrank = d3.max(worldCO2Data.map( function(d) { return d.rank }));
+            minrank = Math.min(10, d3.min(mydata.map( function(d) { return d.rank })) - 2)
+            maxco2 = Math.max(20, d3.max(mydata.map( function(d) { return d.co2 })) + 2)
+            minco2 = d3.min(worldCO2Data.map( function(d) { return d.co2 }));
         
-        xscale.domain([maxrank, minrank]);
-        yscale.domain([0, maxco2]);
+            xscale.domain([maxrank, minrank]);
+            yscale.domain([0, maxco2]);
         
-        co2plot.append("path")
-            .datum(worldCO2Data)
-            .attr("class", "co2line")
-            .attr("d", line);
+            co2plot.append("path")
+                .datum(worldCO2Data)
+                .attr("class", "co2line")
+                .attr("d", line);
         
-        var focus = co2plot.append("g")
-            .attr("class", "focus")
-            .style("display", "none");
+            var focus = co2plot.append("g")
+                .attr("class", "focus")
+                .style("display", "none");
 
-        focus.append("circle")
-            .attr("r", 4.5)
-            .attr("opacity", 0.5);
+            focus.append("circle")
+                .attr("r", 4.5)
+                .attr("opacity", 0.5);
 
-        focus.append("text")
-            .attr("id", "co2text")
-            .attr("x", 0)
-            .attr("y",-20)
-            .attr("font-weight",300)
-            .attr("font-size", "0.9em")
-            .attr("text-anchor","end");
-        focus.append("text")
-            .attr("id", "nametext")
-            .attr("x", 0)
-            .attr("y", -37)
-            .attr("font-size", "1.1em")
-            .attr("text-anchor","end");
+            focus.append("text")
+                .attr("id", "co2text")
+                .attr("x", 0)
+                .attr("y",-20)
+                .attr("font-weight",300)
+                .attr("font-size", "0.9em")
+                .attr("text-anchor","end");
+            focus.append("text")
+                .attr("id", "nametext")
+                .attr("x", 0)
+                .attr("y", -37)
+                .attr("font-size", "1.1em")
+                .attr("text-anchor","end");
           
-        co2plot.selectAll("line.horizontalGrid").
-        //data(spScale.ticks(4)).enter().append("line")
-            data([0,5,10,20,40]).enter().append("line")
-            .attr("class", "horizontalGrid")
-            .attr("x1", 0)
-            .attr("x2", width)
-            .attr("y1", function(d){ return yscale(d);})
-            .attr("y2", function(d){ return yscale(d);});   
+            co2plot.selectAll("line.horizontalGrid").
+            //data(spScale.ticks(4)).enter().append("line")
+                data([0,5,10,20,40]).enter().append("line")
+                .attr("class", "horizontalGrid")
+                .attr("x1", 0)
+                .attr("x2", width)
+                .attr("y1", function(d){ return yscale(d);})
+                .attr("y2", function(d){ return yscale(d);});   
             
-        co2plot.selectAll(".myvals") 
-            .data(mydata)
-          .enter().append("rect")
-            //.attr("class", "myvals")
-            //.attr("x", function(d) { return(xscale(d.rank)); })
-            .attr("x", function(d, i) { return xscale(maxrank + 2+i); })
-            .attr("y", function(d) { return yscale(d.co2); })
-            .attr("class", "myvals")
-            .attr("id", function(d) { return d.cl; })
-            .attr("width", 2)
-            .attr("height",function(d) { return(height - yscale(d.co2)); })
-          .transition().delay( function(d, i) { return 700 + i * 100; } )
-            .attr("x", function(d) { return(xscale(d.rank)); })
-            .duration(function(d, i) { return 200 + i * 150; });
+            /*co2plot.selectAll(".myvals") 
+                .data(mydata)
+              .enter().append("rect")
+                .attr("x", function(d, i) { return xscale(maxrank + 2+i); })
+                .attr("y", function(d) { return yscale(d.co2); })
+                .attr("class", "myvals")
+                .attr("id", function(d) { return d.cl; })
+                .attr("width", 2)
+                .attr("height",function(d) { return(height - yscale(d.co2)); })
+              .transition().delay( function(d, i) { return 700 + i * 100; } )
+                .attr("x", function(d) { return(xscale(d.rank)); })
+                .duration(function(d, i) { return 200 + i * 150; });*/
+             co2plot.selectAll(".myvals") 
+                .data(mydata)
+              .enter().append("rect")
+                .attr("x", function(d, i) { return xscale(maxrank + 2+i); })
+                .attr("y", function(d) { return yscale(d.co2); })
+                .attr("class", "myvals")
+                .attr("id", function(d) { return d.cl; })
+                .attr("width", 2)
+                .attr("height",function(d) { return(height - yscale(d.co2)); })
+              .transition().delay( function(d, i) { return 700 + i * 100; } )
+                .attr("x", function(d) { return(xscale(d.rank)); })
+                .duration(function(d, i) { return 200 + i * 150; }); 
           
-      /*  co2plot.selectAll(".myvalslabel") 
-            .data(mydata)  
-          .enter().append("text")
-            .attr("id", function(d) { return d.cl+"Text"; })
-            .attr("class", "myvalslabel")
-            .attr("x", function(d) { return xscale(d.rank); })
-            .attr("y", function(d, i) { return yscale(-2.5 + 0.5*Math.pow(-1,i)); })
-            .text( function(d) { return d.txt; } )*/
+          /*  co2plot.selectAll(".myvalslabel") 
+                .data(mydata)  
+              .enter().append("text")
+                .attr("id", function(d) { return d.cl+"Text"; })
+                .attr("class", "myvalslabel")
+                .attr("x", function(d) { return xscale(d.rank); })
+                .attr("y", function(d, i) { return yscale(-2.5 + 0.5*Math.pow(-1,i)); })
+                .text( function(d) { return d.txt; } )*/
             
-        co2plot.append("rect")
-          .attr("class", "overlay")
-          .attr("width", width)
-          .attr("height", height)
-          .on("mouseover", function() { focus.style("display", null); })
-          .on("mouseout", function() { focus.style("display", "none"); })
-          .on("mousemove", mousearound);    
+            co2plot.append("rect")
+              .attr("class", "overlay")
+              .attr("width", width)
+              .attr("height", height)
+              .on("mouseover", function() { focus.style("display", null); })
+              .on("mouseout", function() { focus.style("display", "none"); })
+              .on("mousemove", mousearound);    
         
-        if(maxco2 > 30){ 
+            if(maxco2 > 30){ 
+                co2plot.append("text")
+                    .attr("x", 0)
+                    .attr("y", yscale(40))
+                    .attr("dy", -2)
+                    .attr("class", "co2label")
+                    .text("40 tons of CO2 / person / year");  
+                co2plot.append("text")
+                    .attr("x", 0)
+                    .attr("y", yscale(20))
+                    .attr("dy", -2)
+                    .attr("class", "co2label")
+                    .text("20 tons");
+            } else {
+                co2plot.append("text")
+                    .attr("x", 0)
+                    .attr("y", yscale(20))
+                    .attr("dy", -2)
+                    .attr("class", "co2label")
+                    .text("20 tons of CO2 / person / year");
+            };
             co2plot.append("text")
                 .attr("x", 0)
-                .attr("y", yscale(40))
+                .attr("y", yscale(10))
                 .attr("dy", -2)
                 .attr("class", "co2label")
-                .text("40 tons of CO2 / person / year");  
+                .text("10 tons");
             co2plot.append("text")
                 .attr("x", 0)
-                .attr("y", yscale(20))
+                .attr("y", yscale(5))
                 .attr("dy", -2)
                 .attr("class", "co2label")
-                .text("20 tons");
-        } else {
+                .text("5 tons");
+           /* var negy = -maxco2/20;
             co2plot.append("text")
-                .attr("x", 0)
-                .attr("y", yscale(20))
+                .attr("x", xscale(10))
+                .attr("y", yscale(negy))
                 .attr("dy", -2)
+                .attr("text-anchor", "end")
                 .attr("class", "co2label")
-                .text("20 tons of CO2 / person / year");
-        };
-        co2plot.append("text")
-            .attr("x", 0)
-            .attr("y", yscale(10))
-            .attr("dy", -2)
-            .attr("class", "co2label")
-            .text("10 tons");
-        co2plot.append("text")
-            .attr("x", 0)
-            .attr("y", yscale(5))
-            .attr("dy", -2)
-            .attr("class", "co2label")
-            .text("5 tons");
-        var negy = -maxco2/20;
-        co2plot.append("text")
-            .attr("x", xscale(10))
-            .attr("y", yscale(negy))
-            .attr("dy", -2)
-            .attr("text-anchor", "end")
-            .attr("class", "co2label")
-            .text("world rank = 10");
-        co2plot.append("text")
-            .attr("x", xscale(200))
-            .attr("y", yscale(negy))
-            .attr("dy", -2)
-            .attr("text-anchor", "end")
-            .attr("class", "co2label")
-            .text("world rank = 200");
+                .text("world rank = 10");
+            co2plot.append("text")
+                .attr("x", xscale(200))
+                .attr("y", yscale(negy))
+                .attr("dy", -2)
+                .attr("text-anchor", "end")
+                .attr("class", "co2label")
+                .text("world rank = 200");*/
         
-        function mousearound() {
-            var x0 = xscale.invert(d3.mouse(this)[0]),
-                i = bisectRank(worldCO2Data, x0, d3.min(worldCO2Data.map( function(d) { return d.rank })), d3.max(worldCO2Data.map( function(d) { return d.rank }))),
-                d0 = worldCO2Data[i - 1],
-                d1 = worldCO2Data[i],
-                d = x0 - d0.rank > d1.rank - x0 ? d1 : d0;
-            focus.attr("transform", "translate(" + xscale(d.rank) + "," + yscale(d.co2) + ")");
-            focus.select("#co2text").text(formatCO2(d.co2));
-            focus.select("#nametext").text(d.name);
+            function mousearound() {
+                var x0 = xscale.invert(d3.mouse(this)[0]),
+                    i = bisectRank(worldCO2Data, x0, d3.min(worldCO2Data.map( function(d) { return d.rank })), d3.max(worldCO2Data.map( function(d) { return d.rank }))),
+                    d0 = worldCO2Data[i - 1],
+                    d1 = worldCO2Data[i],
+                    d = x0 - d0.rank > d1.rank - x0 ? d1 : d0;
+                focus.attr("transform", "translate(" + xscale(d.rank) + "," + yscale(d.co2) + ")");
+                focus.select("#co2text").text(formatCO2(d.co2));
+                focus.select("#nametext").text(d.name);
             
+            }
         }
     },
-    doOut: function() {
-        console.log("goodbye");
+    /*doOut: function() {
         $("#co2chartsvg").empty();
-    },
+    },*/
     tolerance: Math.floor(0.8*$(window).height()-lbexcess)
 });
 
