@@ -133,7 +133,7 @@ worldmap.append("path")
 /**************************/
 // set up svg container for the selected region text    
 var maptextw = mapw;
-var maptexth = maph / 6;
+var maptexth = maph / 5.5;
 var svgSelectedRegion = d3.select("#selectedRegionText").append("svg")
     .attr("width", maptextw)
     .attr("height", maptexth);
@@ -526,14 +526,22 @@ var parseFlights = function() {
     if (globalclicked === 1) {
         confmax = 7; // this will be zero- internal conferences in antarctica are unlikely
     };
+    console.log(confFlight)
+    console.log(obsFlight)
+    // insert antarctica into confFlightParsed
+    if( globalclicked !== 1) confFlightParsed.splice(1, 0, 0); 
     confFlightParsed.splice(globalclicked, 0, confFlight[confmax]); // move internal flights into their place
     obsFlightParsed.splice(globalclicked, 0, obsFlight[obsmax]);
+    console.log(confFlightParsed)
+    console.log(obsFlightParsed)
     tokill = confmax+1;
     if( globalclicked > confmax ) {
         tokill = confmax;
     };
-    confFlightParsed[tokill] = 0;
-    obsFlightParsed[obsmax+1] = 0;  
+    confFlightParsed[obsmax+1] = 0;
+    obsFlightParsed[obsmax+1] = 0; 
+    console.log(confFlightParsed)
+    console.log(obsFlightParsed)
     console.log(confFlightParsed)
     console.log(obsFlightParsed)
     for (i = 0; i <= obsmax; i++) {
@@ -544,7 +552,7 @@ var parseFlights = function() {
         obsFlightMatrix[ind0][ind1] = obsFlightParsed[i];
     };
 }
-
+//["Africa", "Antarctica", "Asia", "Europe", "Hawaii", "Northern Americas", "Oceania", "South America"];
 
 /**************************/
 // this bit calculates the carbon tonnage for flights. values in tons of CO2
@@ -555,7 +563,7 @@ var flightCostMatrix = [
 // calculated from these airports using http://www.travelnav.com/
 // units are metric tons of co2            
 flightCostMatrix[0][0] = 0.5; //intra Africa     JNB
-flightCostMatrix[0][1] = 10; //Africa - Antarctica  'Antarctica'
+flightCostMatrix[0][1] = 1.34; //Africa - Antarctica  'Antarctica'
 flightCostMatrix[0][2] = 2.48; //Africa - Asia      PEK
 flightCostMatrix[0][3] = 1.9; //Africa - Europe    AMS
 flightCostMatrix[0][4] = 4.06; //Africa - Hawaii      HNL
