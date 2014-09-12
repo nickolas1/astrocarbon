@@ -1,36 +1,33 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300,600' rel='stylesheet' type='text/css'>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
-    <script src="http://d3js.org/topojson.v1.min.js"></script>
-    <script type="text/javascript" src="js/skel.min.js">
-    {
-        prefix: "css/style",
-        resetCSS: true,
-        boxModel: "border",
-        grid: { gutters: 0 },
-        breakpoints: {
-            'normal': { range: "1-", containers: 'fluid', useOrientation: true }, 
+    <head>
+        <meta charset="utf-8">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            if (!window.jQuery) {
+                document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>');
+            }
+        </script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+        <script src="http://d3js.org/topojson.v1.min.js"></script>
+        <script type="text/javascript" src="js/vendor/skel.min.js">
+        {
+            prefix: "css/style",
+            resetCSS: true,
+            boxModel: "border",
+            grid: { gutters: 0 },
+            breakpoints: {
+                'normal': { range: "1-", containers: 'fluid', useOrientation: true }, 
+            }
         }
-    }
-    </script> 
-    <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-          ga('create', 'UA-38044695-1', 'nickolas1.com');
-          ga('send', 'pageview');
-    </script>
-</head>
+        </script> 
+    </head>
 
 <body>
     <div id="letterboxtop" class="letterbox"></div>
@@ -331,7 +328,7 @@
                 <div class="faqA">I think climate change is the greatest single moral challenge we face (not to put too fine a point on it). Future generations, including the youngest current one, will treat 
                 all the other crises and conflicts of our lives as footnotes to our response to climate change. I think we should spare some thought to how our activities impact the world while we study space.</div>
                 <span class="faqQ">this feels like you're picking on astronomers. why pick on astronomers?</span>
-                <div class="faqA"><a href="http://nickolas1.com">I am currently an astronomer.</a></div>
+                <div class="faqA"><a href="http://nickolas1.com">I was an astronomer.</a></div>
                 <span class="faqQ">why did you divide the world up like that?</span>
                 <div class="faqA">the world is large, and I wanted to keep the options manageable. I chose to follow <a href="http://www.fifa.com/aboutfifa/organisation/confederations/index.html">FIFA's confederations</a>, with a few exceptions (the CONCACAF members in South America; Greenland; Hawaii). I sincerely don't want to cause any distress 
     by the way I regionalized the world, so please let me know if I made a bad choice.</div>
@@ -347,9 +344,19 @@
     <div id="bottomspacer" class="row">&nbsp;</div>
     
     
-    <script src="js/jquery.knob.js"></script>
-    <script src="js/jquery.onscreen.min.js"></script>
-    <script src="js/sitecontent.js"></script>
+    <script src="js/jquery.knob.min.js"></script>
+    <script src="js/vendor/jquery.onscreen.min.js"></script>
+    <script src="js/sitecontent.min.js"></script>
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-38044695-1', 'nickolas1.com');
+        ga('send', 'pageview');
+    </script>
     
 </body>
 </html>

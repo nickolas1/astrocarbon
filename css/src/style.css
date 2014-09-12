@@ -1,8 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,300);
 
 * {
-          -moz-box-sizing: border-box;
-               box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 body {
@@ -18,8 +17,7 @@ body {
 		text-decoration: none;
 		color: inherit;
 		border-bottom: dotted 1px rgba(128,128,128,0.5);
-		-webkit-transition: color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-		        transition: color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+		transition: color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
 		outline: 0;
 }
     a:hover
