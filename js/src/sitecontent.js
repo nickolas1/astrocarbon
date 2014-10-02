@@ -1,4 +1,4 @@
-// hide scroll bar on android
+// hide scroll bar on android 
 $(function() {
     if (navigator.userAgent.match(/Android/i)) {
         window.scrollTo(0,0); // reset in case prev not scrolled  
